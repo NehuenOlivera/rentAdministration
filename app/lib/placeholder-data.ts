@@ -1,4 +1,8 @@
 // This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
+
+import { comment } from "postcss";
+import { start } from "repl";
+
 // https://nextjs.org/learn/dashboard-app/fetching-data
 const users = [
   {
@@ -28,24 +32,6 @@ const customers = [
     email: 'lee@robinson.com',
     image_url: '/customers/lee-robinson.png',
   },
-  {
-    id: '76d65c26-f784-44a2-ac19-586678f7c2f2',
-    name: 'Michael Novotny',
-    email: 'michael@novotny.com',
-    image_url: '/customers/michael-novotny.png',
-  },
-  {
-    id: 'CC27C14A-0ACF-4F4A-A6C9-D45682C144B9',
-    name: 'Amy Burns',
-    email: 'amy@burns.com',
-    image_url: '/customers/amy-burns.png',
-  },
-  {
-    id: '13D07535-C59E-4157-A011-F8D2EF4E0CBB',
-    name: 'Balazs Orban',
-    email: 'balazs@orban.com',
-    image_url: '/customers/balazs-orban.png',
-  },
 ];
 
 const invoices = [
@@ -62,24 +48,6 @@ const invoices = [
     date: '2022-11-14',
   },
   {
-    customer_id: customers[4].id,
-    amount: 3040,
-    status: 'paid',
-    date: '2022-10-29',
-  },
-  {
-    customer_id: customers[3].id,
-    amount: 44800,
-    status: 'paid',
-    date: '2023-09-10',
-  },
-  {
-    customer_id: customers[5].id,
-    amount: 34577,
-    status: 'pending',
-    date: '2023-08-05',
-  },
-  {
     customer_id: customers[2].id,
     amount: 54246,
     status: 'pending',
@@ -92,34 +60,10 @@ const invoices = [
     date: '2023-06-27',
   },
   {
-    customer_id: customers[3].id,
-    amount: 32545,
-    status: 'paid',
-    date: '2023-06-09',
-  },
-  {
-    customer_id: customers[4].id,
-    amount: 1250,
-    status: 'paid',
-    date: '2023-06-17',
-  },
-  {
-    customer_id: customers[5].id,
-    amount: 8546,
-    status: 'paid',
-    date: '2023-06-07',
-  },
-  {
     customer_id: customers[1].id,
     amount: 500,
     status: 'paid',
     date: '2023-08-19',
-  },
-  {
-    customer_id: customers[5].id,
-    amount: 8945,
-    status: 'paid',
-    date: '2023-06-03',
   },
   {
     customer_id: customers[2].id,
@@ -144,4 +88,57 @@ const revenue = [
   { month: 'Dec', revenue: 4800 },
 ];
 
-export { users, customers, invoices, revenue };
+const adjustment_frequencies = [
+  {
+    id: '1',
+    name: 'Mensual',
+  },
+  {
+    id: '2',
+    name: 'Bimestral',
+  },
+  {
+    id: '3',
+    name: 'Trimestral',
+  },
+  {
+    id: '4',
+    name: 'Cuatrimestral',
+  },
+  {
+    id: '5',
+    name: 'Semestral',
+  },
+  {
+    id: '6',
+    name: 'Anual',
+  },
+];
+
+const properties = [
+  {
+    name: 'Balbeck',
+    street_name: 'Arturo Illia',
+    street_number: '480',
+    floor_number: '12',
+    apartment_number: 'D',
+    city: 'Cordoba',
+    dgr_code: '110123756126',
+    municipal_code: '040900800900060',
+    epec_client_number: '05288482',
+    epec_contract_number: '0085339006',
+    water_contract_number: '573564',
+    landlord_name: 'Julia Olivera',
+    tenant_name: 'Pedro Armando Gutierrez',
+    tenant_cuit_cuil: '20-16157322-2',
+    contact_person_name: 'Pedro Armando Gutierrez',
+    contact_person_phone: '3517575597',
+    start_date: '2022-01-01',
+    end_date: '2024-12-31',
+    monthly_rent: 109350,
+    adjustment_frequency_id: adjustment_frequencies[4].id,
+    comments: 'Lo que se quiera poner de comentario',
+  },
+];
+
+export { users, customers, invoices, revenue, adjustment_frequencies, properties };
