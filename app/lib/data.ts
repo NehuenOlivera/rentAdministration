@@ -167,13 +167,12 @@ export async function fetchFilteredProperties(
   try {
     const properties = await sql<PropertiesTable>`
       SELECT *
-      FROM properties p
-      LEFT JOIN rentreceipts r ON p.id = r.property_id
+      FROM properties
       WHERE
-        p.name::text ILIKE ${`%${query}%`} OR
-        p.street_name::text ILIKE ${`%${query}%`} OR
-        p.municipal_code::text ILIKE ${`%${query}%`}
-      ORDER BY p.name ASC
+        name::text ILIKE ${`%${query}%`} OR
+        street_name::text ILIKE ${`%${query}%`} OR
+        municipal_code::text ILIKE ${`%${query}%`}
+      ORDER BY name ASC
       LIMIT ${PROPERTIES_PER_PAGE} OFFSET ${offset}
     `;
 
@@ -181,6 +180,24 @@ export async function fetchFilteredProperties(
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch properties.');
+  }
+}
+
+export async function fetchPropertiesPages(query: string) {
+  try {
+    const count = await sql`SELECT COUNT(*)
+    FROM properties
+    WHERE
+      name::text ILIKE ${`%${query}%`} OR
+      street_name::text ILIKE ${`%${query}%`} OR
+      municipal_code::text ILIKE ${`%${query}%`}
+  `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / PROPERTIES_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of properties.');
   }
 }
 

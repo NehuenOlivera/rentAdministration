@@ -1,10 +1,11 @@
-import Pagination from '@/app/ui/invoices/pagination';
+import Pagination from '@/app/ui/properties/pagination';
 import Search from '@/app/ui/search';
 import Table from '@/app/ui/properties/table';
 import { CreateProperty } from '@/app/ui/properties/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { PropertiesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
+import { fetchPropertiesPages } from '@/app/lib/data';
  
 export default async function Page({
     searchParams,
@@ -16,6 +17,7 @@ export default async function Page({
 }) {
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
+    const totalPages = await fetchPropertiesPages(query);
 
   return (
     <div className="w-full">
@@ -30,7 +32,7 @@ export default async function Page({
         <Table query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );
