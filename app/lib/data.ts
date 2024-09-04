@@ -5,6 +5,7 @@ import {
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
+  PropertiesTable,
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
@@ -153,6 +154,33 @@ export async function fetchInvoiceById(id: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoice.');
+  }
+}
+
+const PROPERTIES_PER_PAGE = 10;
+export async function fetchFilteredProperties(
+  query: string,
+  currentPage: number,
+) {
+  const offset = (currentPage - 1) * PROPERTIES_PER_PAGE;
+
+  try {
+    const properties = await sql<PropertiesTable>`
+      SELECT *
+      FROM properties p
+      JOIN rentreceipts r ON p.id = r.property_id
+      WHERE
+        p.name::text ILIKE ${`%${query}%`} OR
+        p.street_name::text ILIKE ${`%${query}%`} OR
+        p.municipal_code::text ILIKE ${`%${query}%`}
+      ORDER BY p.name DESC
+      LIMIT ${PROPERTIES_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return properties.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch properties.');
   }
 }
 
