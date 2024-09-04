@@ -168,12 +168,12 @@ export async function fetchFilteredProperties(
     const properties = await sql<PropertiesTable>`
       SELECT *
       FROM properties p
-      JOIN rentreceipts r ON p.id = r.property_id
+      LEFT JOIN rentreceipts r ON p.id = r.property_id
       WHERE
         p.name::text ILIKE ${`%${query}%`} OR
         p.street_name::text ILIKE ${`%${query}%`} OR
         p.municipal_code::text ILIKE ${`%${query}%`}
-      ORDER BY p.name DESC
+      ORDER BY p.name ASC
       LIMIT ${PROPERTIES_PER_PAGE} OFFSET ${offset}
     `;
 

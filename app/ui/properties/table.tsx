@@ -105,7 +105,7 @@ export default async function PropertiesTable({
                     {formatDateToLocal(property.start_date)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    <InvoiceStatus status={property.comments} />
+                    {property.comments}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
