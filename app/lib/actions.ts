@@ -134,7 +134,7 @@ export async function createProperty(formData: FormData) {
         console.error('Database Error:', error);
         throw new Error('Failed to create property.');
     }
-    
+
     revalidatePath('/dashboard/properties');
     redirect('/dashboard/properties');
 }
@@ -231,6 +231,11 @@ export async function updateProperty(id: string, formData: FormData) {
 }
 
 export async function deleteProperty(id: string) {
-    await sql`DELETE FROM properties WHERE id = ${id}`;
-    revalidatePath('/dashboard/properties');
+    try {
+        await sql`DELETE FROM properties WHERE id = ${id}`;
+        revalidatePath('/dashboard/properties');
+        return { message: 'Propiedad eliminada' };
+    } catch (error) {
+        return { message: 'Database error: Error al eliminar la propiedad' };
+    }
   }
