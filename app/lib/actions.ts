@@ -227,3 +227,9 @@ export async function updateProperty(id: string, formData: FormData) {
         throw new Error('Failed to update property.');
     }
 }
+
+export async function deleteProperty(id: string) {
+    await sql`DELETE FROM properties WHERE id = ${id}`;
+    revalidatePath('/dashboard/properties');
+  }
+  

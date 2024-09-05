@@ -1,5 +1,6 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { deleteProperty } from '@/app/lib/actions';
 
 export function CreateProperty() {
   return (
@@ -25,12 +26,15 @@ export function UpdateProperty({ id }: { id: string }) {
 }
 
 export function DeleteProperty({ id }: { id: string }) {
+
+  const deletePropertyWithId = deleteProperty.bind(null, id);
+
   return (
-    <>
+    <form action={deletePropertyWithId}>
       <button className="rounded-md border p-2 hover:bg-gray-100">
-        <span className="sr-only">Delete</span>
+        <span className="sr-only">Borrar</span>
         <TrashIcon className="w-5" />
       </button>
-    </>
+    </form>
   );
 }
