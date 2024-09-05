@@ -1,6 +1,7 @@
 import Form from '@/app/ui/properties/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
 import { fetchAdjustmentFrequencies, fetchPropertyById } from '@/app/lib/data';
+import { notFound } from 'next/navigation';
  
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
@@ -8,6 +9,10 @@ export default async function Page({ params }: { params: { id: string } }) {
         fetchPropertyById(id),
         fetchAdjustmentFrequencies(),
     ]);
+
+    if (!property) {
+        notFound();
+    }
     // Modify the property start_date and end_date to be a string
     property.start_date = new Date(property.start_date).toISOString().split('T')[0];
     property.end_date = new Date(property.end_date).toISOString().split('T')[0];
