@@ -117,7 +117,7 @@ export type InvoiceForm = {
   status: 'pending' | 'paid';
 };
 
-export type Property = {
+export type PropertyForm = {
   id: string;
   name: string;
   street_name: string;

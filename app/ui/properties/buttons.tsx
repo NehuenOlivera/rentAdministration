@@ -16,7 +16,7 @@ export function CreateProperty() {
 export function UpdateProperty({ id }: { id: string }) {
   return (
     <Link
-      href="/dashboard/properties"
+      href={`/dashboard/properties/${id}/edit`}
       className="rounded-md border p-2 hover:bg-gray-100"
     >
       <PencilIcon className="w-5" />

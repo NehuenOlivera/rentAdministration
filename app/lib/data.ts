@@ -7,6 +7,7 @@ import {
   InvoicesTable,
   LatestInvoiceRaw,
   PropertiesTable,
+  PropertyForm,
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
@@ -155,6 +156,27 @@ export async function fetchInvoiceById(id: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoice.');
+  }
+}
+
+export async function fetchPropertyById(id: string) {
+  try {
+    const data = await sql<PropertyForm>`
+      SELECT *
+      FROM properties
+      WHERE properties.id = ${id};
+    `;
+
+    const property = data.rows.map((property) => ({
+      ...property,
+      // Convert rent amount from cents to dollars
+      monthly_rent: property.monthly_rent / 100,
+    }));
+
+    return property[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch property.');
   }
 }
 

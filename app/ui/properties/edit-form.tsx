@@ -1,5 +1,6 @@
-import { FrequencyField } from '@/app/lib/definitions';
-import Link from 'next/link';
+'use client';
+
+import { FrequencyField, PropertyForm } from '@/app/lib/definitions';
 import {
     Bars2Icon,
   BoltIcon,
@@ -11,30 +12,42 @@ import {
   HomeIcon,
   MapPinIcon,
   PhoneIcon,
-  StopIcon
+  StopIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { createProperty } from '@/app/lib/actions';
+import { updateProperty } from '@/app/lib/actions';
 
-export default function Form({ frequencies }: { frequencies: FrequencyField[] }) {
+export default function EditPropertyForm({
+  property,
+  frequencies,
+}: {
+    property: PropertyForm;
+    frequencies: FrequencyField[];
+}) {
+    const updatePropertyWithId = updateProperty.bind(null, property.id);
+
   return (
-    <form action={createProperty}>
+    <form action={updatePropertyWithId}>
+        <input type="hidden" name="id" value={property.id} />
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Property Name */}
         <div className="mb-4">
-          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+            <label htmlFor="name" className="mb-2 block text-sm font-medium">
             Nombre de propiedad
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
-              <input
-                id="name"
-                name="name"
-                type="string"
-                placeholder="Nombre de propiedad"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              />
-              <HomeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                <input
+                    id="name"
+                    name="name"
+                    type="string"
+                    defaultValue={property.name}
+                    placeholder="Nombre de propiedad"
+                    className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                />
+                <HomeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -50,6 +63,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="street_name"
                         name="street_name"
                         type="string"
+                        defaultValue={property.street_name}
                         placeholder="Calle"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -61,6 +75,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="street_number"
                         name="street_number"
                         type="string"
+                        defaultValue={property.street_number}
                         placeholder="Número"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -72,6 +87,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="floor_number"
                         name="floor_number"
                         type="string"
+                        defaultValue={property.floor_number}
                         placeholder="Piso"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -83,6 +99,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="apartment_number"
                         name="apartment_number"
                         type="string"
+                        defaultValue={property.apartment_number}
                         placeholder="Departamento"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -102,6 +119,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                 id="dgr_code"
                 name="dgr_code"
                 type="string"
+                defaultValue={property.dgr_code}
                 placeholder="Código DGR"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
@@ -121,6 +139,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                 id="municipal_code"
                 name="municipal_code"
                 type="string"
+                defaultValue={property.municipal_code}
                 placeholder="Número de inmueble"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
@@ -140,6 +159,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="epec_client_number"
                         name="epec_client_number"
                         type="string"
+                        defaultValue={property.epec_client_number}
                         placeholder="Número de cliente"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -151,6 +171,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="epec_contract_number"
                         name="epec_contract_number"
                         type="string"
+                        defaultValue={property.epec_contract_number}
                         placeholder="Número de contrato"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -170,6 +191,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                 id="water_contract_number"
                 name="water_contract_number"
                 type="string"
+                defaultValue={property.water_contract_number}
                 placeholder="Número de contrato"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
@@ -189,6 +211,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                 id="landlord_name"
                 name="landlord_name"
                 type="string"
+                defaultValue={property.landlord_name}
                 placeholder="Nombre de locador"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
@@ -208,6 +231,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="tenant_name"
                         name="tenant_name"
                         type="string"
+                        defaultValue={property.tenant_name}
                         placeholder="Nombre de inquilino"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -219,6 +243,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="tenant_cuit_cuil"
                         name="tenant_cuit_cuil"
                         type="string"
+                        defaultValue={property.tenant_cuit_cuil}
                         placeholder="CUIL-CUIT"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -230,6 +255,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="contact_person_name"
                         name="contact_person_name"
                         type="string"
+                        defaultValue={property.contact_person_name}
                         placeholder="Persona de contacto"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -241,6 +267,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="contact_person_phone"
                         name="contact_person_phone"
                         type="string"
+                        defaultValue={property.contact_person_phone}
                         placeholder="Celular de contacto"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -263,6 +290,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="start_date"
                         name="start_date"
                         type="date"
+                        defaultValue={property.start_date}
                         placeholder="Inicio de contrato"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -279,6 +307,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="end_date"
                         name="end_date"
                         type="date"
+                        defaultValue={property.end_date}
                         placeholder="Fin de contrato"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -295,7 +324,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                     id="adjustment_frequency_id"
                     name="adjustment_frequency_id"
                     className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                    defaultValue=""
+                    defaultValue={property.adjustment_frequency_id}
                     >
                     <option value="" disabled>
                         Frecuencia
@@ -319,6 +348,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         id="monthly_rent"
                         name="monthly_rent"
                         type="number"
+                        defaultValue={property.monthly_rent}
                         placeholder="Precio Alquiler"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
@@ -341,6 +371,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                 id="comments"
                 name="comments"
                 type="string"
+                defaultValue={property.comments}
                 placeholder="Comentarios"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
@@ -358,7 +389,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
         >
           Cancelar
         </Link>
-        <Button type="submit">Crear Propiedad</Button>
+        <Button type="submit">Editar Propiedad</Button>
       </div>
     </form>
   );
