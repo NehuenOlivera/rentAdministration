@@ -1,9 +1,9 @@
 import Form from '@/app/ui/properties/create-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchCustomers } from '@/app/lib/data';
+import { fetchAdjustmentFrequencies } from '@/app/lib/data';
  
 export default async function Page() {
-  const customers = await fetchCustomers();
+  const frequencies = await fetchAdjustmentFrequencies();
  
   return (
     <main>
@@ -17,7 +17,7 @@ export default async function Page() {
           },
         ]}
       />
-      <Form />
+      <Form frequencies={frequencies} />
     </main>
   );
 }

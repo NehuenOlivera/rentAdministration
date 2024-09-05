@@ -105,9 +105,39 @@ export type CustomerField = {
   name: string;
 };
 
+export type FrequencyField = {
+  id: string;
+  name: string;
+};
+
 export type InvoiceForm = {
   id: string;
   customer_id: string;
   amount: number;
   status: 'pending' | 'paid';
+};
+
+export type Property = {
+  id: string;
+  name: string;
+  street_name: string;
+  street_number: string;
+  floor_number: string;
+  apartment_number: string;
+  city: string;
+  dgr_code: string;
+  municipal_code: string;
+  epec_client_number: string;
+  epec_contract_number: string;
+  water_contract_number: string;
+  landlord_name: string;
+  tenant_name: string;
+  tenant_cuit_cuil: string;
+  contact_person_name: string;
+  contact_person_phone: string;
+  start_date: string;
+  end_date: string;
+  monthly_rent: number;
+  adjustment_frequency_id: number;
+  comments: string;
 };

@@ -1,30 +1,35 @@
-import { CustomerField } from '@/app/lib/definitions';
+import { FrequencyField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
     Bars2Icon,
+  BoltIcon,
+  CalendarIcon,
+  ChatBubbleBottomCenterIcon,
   CheckIcon,
   ClockIcon,
   CurrencyDollarIcon,
   HomeIcon,
   MapPinIcon,
+  PhoneIcon,
   StopIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
+import { createProperty } from '@/app/lib/actions';
 
-export default function Form() {
+export default function Form({ frequencies }: { frequencies: FrequencyField[] }) {
   return (
-    <form>
+    <form action={createProperty}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Property Name */}
         <div className="mb-4">
-          <label htmlFor="propertyName" className="mb-2 block text-sm font-medium">
+          <label htmlFor="name" className="mb-2 block text-sm font-medium">
             Nombre de propiedad
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="propertyName"
-                name="propertyName"
+                id="name"
+                name="name"
                 type="string"
                 placeholder="Nombre de propiedad"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -36,14 +41,14 @@ export default function Form() {
 
         {/* Address */}
         <div className="mb-4">
-            <label htmlFor="streetName" className="mb-2 block text-sm font-medium">
+            <label htmlFor="street_name" className="mb-2 block text-sm font-medium">
                 Ubicación
             </label>
-            <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
-                <div className="relative sm:col-span-2">
+            <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-1 lg:grid-cols-5">
+                <div className="relative lg:col-span-2">
                     <input
-                        id="streetName"
-                        name="streetName"
+                        id="street_name"
+                        name="street_name"
                         type="string"
                         placeholder="Calle"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -51,10 +56,10 @@ export default function Form() {
                     <Bars2Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
 
-                <div className="relative sm:col-span-1">
+                <div className="relative lg:col-span-1">
                     <input
-                        id="streetNumber"
-                        name="streetNumber"
+                        id="street_number"
+                        name="street_number"
                         type="string"
                         placeholder="Número"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -62,10 +67,10 @@ export default function Form() {
                     <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
 
-                <div className="relative sm:col-span-1">
+                <div className="relative lg:col-span-1">
                     <input
-                        id="floor"
-                        name="floor"
+                        id="floor_number"
+                        name="floor_number"
                         type="string"
                         placeholder="Piso"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -73,10 +78,10 @@ export default function Form() {
                     <StopIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
 
-                <div className="relative sm:col-span-1">
+                <div className="relative lg:col-span-1">
                     <input
-                        id="apartment"
-                        name="apartment"
+                        id="apartment_number"
+                        name="apartment_number"
                         type="string"
                         placeholder="Departamento"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -86,19 +91,18 @@ export default function Form() {
             </div>
         </div>
 
-        {/* Invoice Amount */}
+        {/* Codigo DGR */}
         <div className="mb-4">
-          <label htmlFor="amount" className="mb-2 block text-sm font-medium">
-            Choose an amount
+          <label htmlFor="dgr_code" className="mb-2 block text-sm font-medium">
+            Dirección General de Rentas
           </label>
           <div className="relative mt-2 rounded-md">
             <div className="relative">
               <input
-                id="amount"
-                name="amount"
-                type="number"
-                step="0.01"
-                placeholder="Enter USD amount"
+                id="dgr_code"
+                name="dgr_code"
+                type="string"
+                placeholder="Código DGR"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
               <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -106,46 +110,244 @@ export default function Form() {
           </div>
         </div>
 
-        {/* Invoice Status */}
-        <fieldset>
-          <legend className="mb-2 block text-sm font-medium">
-            Set the invoice status
-          </legend>
-          <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
-            <div className="flex gap-4">
-              <div className="flex items-center">
-                <input
-                  id="pending"
-                  name="status"
-                  type="radio"
-                  value="pending"
-                  className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                />
-                <label
-                  htmlFor="pending"
-                  className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600"
-                >
-                  Pending <ClockIcon className="h-4 w-4" />
-                </label>
-              </div>
-              <div className="flex items-center">
-                <input
-                  id="paid"
-                  name="status"
-                  type="radio"
-                  value="paid"
-                  className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
-                />
-                <label
-                  htmlFor="paid"
-                  className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-xs font-medium text-white"
-                >
-                  Paid <CheckIcon className="h-4 w-4" />
-                </label>
-              </div>
+        {/* Codigo Municipal */}
+        <div className="mb-4">
+          <label htmlFor="municipal_code" className="mb-2 block text-sm font-medium">
+            Municipalidad
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="municipal_code"
+                name="municipal_code"
+                type="string"
+                placeholder="Número de inmueble"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              />
+              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
-        </fieldset>
+        </div>
+
+        {/* Epec */}
+        <div className="mb-4">
+          <label htmlFor="epec_client_number" className="mb-2 block text-sm font-medium">
+            Epec
+          </label>
+          <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-1 lg:grid-cols-2">
+                <div className="relative">
+                    <input
+                        id="epec_client_number"
+                        name="epec_client_number"
+                        type="string"
+                        placeholder="Número de cliente"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <BoltIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </div>
+
+                <div className="relative">
+                    <input
+                        id="epec_contract_number"
+                        name="epec_contract_number"
+                        type="string"
+                        placeholder="Número de contrato"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </div>
+            </div>
+        </div>
+
+        {/* Aguas */}
+        <div className="mb-4">
+          <label htmlFor="water_contract_number" className="mb-2 block text-sm font-medium">
+            Aguas
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="water_contract_number"
+                name="water_contract_number"
+                type="string"
+                placeholder="Número de contrato"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              />
+              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            </div>
+          </div>
+        </div>
+
+        {/* Landlord */}
+        <div className="mb-4">
+          <label htmlFor="landlord_name" className="mb-2 block text-sm font-medium">
+            Locador
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="landlord_name"
+                name="landlord_name"
+                type="string"
+                placeholder="Nombre de locador"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              />
+              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            </div>
+          </div>
+        </div>
+
+        {/* Tenant */}
+        <div className="mb-4">
+          <label htmlFor="tenantName" className="mb-2 block text-sm font-medium">
+            Inquilino
+          </label>
+          <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-1 lg:grid-cols-2">
+                <div className="relative">
+                    <input
+                        id="tenant_name"
+                        name="tenant_name"
+                        type="string"
+                        placeholder="Nombre de inquilino"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <BoltIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </div>
+
+                <div className="relative">
+                    <input
+                        id="tenant_cuit_cuil"
+                        name="tenant_cuit_cuil"
+                        type="string"
+                        placeholder="CUIL-CUIT"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </div>
+
+                <div className="relative">
+                    <input
+                        id="contact_person_name"
+                        name="contact_person_name"
+                        type="string"
+                        placeholder="Persona de contacto"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </div>
+
+                <div className="relative">
+                    <input
+                        id="contact_person_phone"
+                        name="contact_person_phone"
+                        type="string"
+                        placeholder="Celular de contacto"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <PhoneIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </div>
+            </div>
+        </div>
+
+        {/* Fechas */}
+        <div className="mb-4">
+            <label htmlFor="contract" className="mb-2 block text-sm font-medium">
+                Contrato
+            </label>
+            <div className="mt-2 grid grid-cols-4 gap-2 sm:grid-cols-1 lg:grid-cols-4">
+                <div className="relative lg:grid-cols-1">
+                    <label htmlFor="start_date" className="mb-2 block text-sm font-medium">
+                        Inicio
+                    </label>
+                    <input
+                        id="start_date"
+                        name="start_date"
+                        type="date"
+                        placeholder="Inicio de contrato"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <CalendarIcon 
+                        className="pointer-events-none absolute left-3 h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
+                        style={{ top: '57%' }} 
+                    />
+                </div>
+                <div className="relative lg:grid-cols-1">
+                    <label htmlFor="end_date" className="mb-2 block text-sm font-medium">
+                        Fin
+                    </label>
+                    <input
+                        id="end_date"
+                        name="end_date"
+                        type="date"
+                        placeholder="Fin de contrato"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <CalendarIcon 
+                        className="pointer-events-none absolute left-3 h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
+                        style={{ top: '57%' }} 
+                    />
+                </div>
+                <div className="relative lg:grid-cols-1">
+                    <label htmlFor="adjustment_frequency_id" className="mb-2 block text-sm font-medium">
+                        Actualización
+                    </label>
+                    <select
+                    id="adjustment_frequency_id"
+                    name="adjustment_frequency_id"
+                    className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    defaultValue=""
+                    >
+                    <option value="" disabled>
+                        Frecuencia
+                    </option>
+                    {frequencies.map((frequency) => (
+                        <option key={frequency.id} value={frequency.id}>
+                        {frequency.name}
+                        </option>
+                    ))}
+                    </select>
+                    <ClockIcon 
+                        className="pointer-events-none absolute left-3 h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
+                        style={{ top: '57%' }} 
+                    />
+                </div>
+                <div className="relative lg:grid-cols-1">
+                    <label htmlFor="monthly_rent" className="mb-2 block text-sm font-medium">
+                        Fin
+                    </label>
+                    <input
+                        id="monthly_rent"
+                        name="monthly_rent"
+                        type="number"
+                        placeholder="Precio Alquiler"
+                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    />
+                    <CurrencyDollarIcon 
+                        className="pointer-events-none absolute left-3 h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
+                        style={{ top: '57%' }} 
+                    />
+                </div>
+            </div>
+        </div>
+
+        {/* Comments */}
+        <div className="mb-4">
+          <label htmlFor="comments" className="mb-2 block text-sm font-medium">
+            Comentarios
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="comments"
+                name="comments"
+                type="string"
+                placeholder="Comentarios"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+              />
+              <ChatBubbleBottomCenterIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            </div>
+          </div>
+        </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link

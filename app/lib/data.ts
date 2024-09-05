@@ -2,6 +2,7 @@ import { sql } from '@vercel/postgres';
 import {
   CustomerField,
   CustomersTableType,
+  FrequencyField,
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
@@ -216,6 +217,23 @@ export async function fetchCustomers() {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all customers.');
+  }
+}
+
+export async function fetchAdjustmentFrequencies() {
+  try {
+    const data = await sql<FrequencyField>`
+      SELECT
+        id,
+        name
+      FROM adjustmentfrequencies
+    `;
+
+    const frequencies = data.rows;
+    return frequencies;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all frequencies.');
   }
 }
 
