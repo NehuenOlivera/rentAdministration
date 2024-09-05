@@ -130,12 +130,13 @@ export async function createProperty(formData: FormData) {
             )
         `;
         // TODO: Implementar redireccion despues de crear la propiedad
-        revalidatePath('/dashboard/properties');
-        // redirect('/dashboard/properties');
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to create property.');
     }
+    
+    revalidatePath('/dashboard/properties');
+    redirect('/dashboard/properties');
 }
 
 const UpdateProperty = PropertyFormSchema.omit({ id: true, city: true });
@@ -220,16 +221,16 @@ export async function updateProperty(id: string, formData: FormData) {
         `;
 
         // TODO: Implementar redireccion despues de actualizar la propiedad
-        revalidatePath('/dashboard/properties');
-        // redirect('/dashboard/properties');
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to update property.');
     }
+
+    revalidatePath('/dashboard/properties');
+    redirect('/dashboard/properties');
 }
 
 export async function deleteProperty(id: string) {
     await sql`DELETE FROM properties WHERE id = ${id}`;
     revalidatePath('/dashboard/properties');
   }
-  
