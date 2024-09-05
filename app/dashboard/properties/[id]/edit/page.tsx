@@ -8,6 +8,9 @@ export default async function Page({ params }: { params: { id: string } }) {
         fetchPropertyById(id),
         fetchAdjustmentFrequencies(),
     ]);
+    // Modify the property start_date and end_date to be a string
+    property.start_date = new Date(property.start_date).toISOString().split('T')[0];
+    property.end_date = new Date(property.end_date).toISOString().split('T')[0];
   return (
     <main>
       <Breadcrumbs
