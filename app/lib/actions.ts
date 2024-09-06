@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 
 const PropertyFormSchema = z.object({
     id: z.string(),
-    name: z.string(),
+    name: z.string({ invalid_type_error: 'Ingrese un nombre válido' }),
     street_name: z.string(),
     street_number: z.string(),
     floor_number: z.string(),
@@ -25,36 +25,15 @@ const PropertyFormSchema = z.object({
     contact_person_phone: z.string(),
     start_date: z.string(),
     end_date: z.string(),
-    adjustment_frequency_id: z.coerce.number(),
-    monthly_rent: z.coerce.number(),
+    adjustment_frequency_id: z.coerce.number().gt(0, { message: 'Seleccione una frecuencia de ajuste' }),
+    monthly_rent: z.coerce.number().gt(0, { message: 'Ingrese un monto de alquiler mayor a cero' }),
     comments: z.string(),
 });
 
 const CreateProperty = PropertyFormSchema.omit({ id: true, city: true });
 
-export async function createProperty(formData: FormData) {
-    const {
-        name,
-        street_name,
-        street_number,
-        floor_number,
-        apartment_number,
-        dgr_code,
-        municipal_code,
-        epec_client_number,
-        epec_contract_number,
-        water_contract_number,
-        landlord_name,
-        tenant_name,
-        tenant_cuit_cuil,
-        contact_person_name,
-        contact_person_phone,
-        start_date,
-        end_date,
-        adjustment_frequency_id,
-        monthly_rent,
-        comments,
-    } = CreateProperty.parse({
+export async function createProperty(prevState: State, formData: FormData) {
+    const validatedFields = CreateProperty.safeParse({
         name: formData.get('name'),
         street_name: formData.get('street_name'),
         street_number: formData.get('street_number'),
@@ -76,6 +55,41 @@ export async function createProperty(formData: FormData) {
         monthly_rent: formData.get('monthly_rent'),
         comments: formData.get('comments'),
     });
+
+    if (!validatedFields.success) {
+        console.log("Adentro del if");
+        console.log(validatedFields.error?.flatten().fieldErrors);
+
+        return { 
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Faltan campos. Error al crear la propiedad'
+        };
+    }
+
+    console.log("Paso del if");
+
+    const {
+        name,
+        street_name,
+        street_number,
+        floor_number,
+        apartment_number,
+        dgr_code,
+        municipal_code,
+        epec_client_number,
+        epec_contract_number,
+        water_contract_number,
+        landlord_name,
+        tenant_name,
+        tenant_cuit_cuil,
+        contact_person_name,
+        contact_person_phone,
+        start_date,
+        end_date,
+        adjustment_frequency_id,
+        monthly_rent,
+        comments,
+    } = validatedFields.data;
 
     const rent_amount_in_cents = monthly_rent * 100;
     const city = 'Córdoba';
@@ -129,10 +143,8 @@ export async function createProperty(formData: FormData) {
                 ${comments}
             )
         `;
-        // TODO: Implementar redireccion despues de crear la propiedad
     } catch (error) {
-        console.error('Database Error:', error);
-        throw new Error('Failed to create property.');
+        return { message: 'Database error: Error al crear la propiedad' };
     }
 
     revalidatePath('/dashboard/properties');
@@ -220,7 +232,6 @@ export async function updateProperty(id: string, formData: FormData) {
             WHERE id = ${id}
         `;
 
-        // TODO: Implementar redireccion despues de actualizar la propiedad
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to update property.');
@@ -239,3 +250,29 @@ export async function deleteProperty(id: string) {
         return { message: 'Database error: Error al eliminar la propiedad' };
     }
   }
+
+export type State = {
+    errors?: {
+        name?: string[];
+        street_name?: string[];
+        street_number?: string[];
+        floor_number?: string[];
+        apartment_number?: string[];
+        dgr_code?: string[];
+        municipal_code?: string[];
+        epec_client_number?: string[];
+        epec_contract_number?: string[];
+        water_contract_number?: string[];
+        landlord_name?: string[];
+        tenant_name?: string[];
+        tenant_cuit_cuil?: string[];
+        contact_person_name?: string[];
+        contact_person_phone?: string[];
+        start_date?: string[];
+        end_date?: string[];
+        adjustment_frequency_id?: string[];
+        monthly_rent?: string[];
+        comments?: string[];
+    };
+    message?: string | null;
+}

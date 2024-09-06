@@ -1,11 +1,12 @@
+'use client';
+
 import { FrequencyField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
-    Bars2Icon,
+  Bars2Icon,
   BoltIcon,
   CalendarIcon,
   ChatBubbleBottomCenterIcon,
-  CheckIcon,
   ClockIcon,
   CurrencyDollarIcon,
   HomeIcon,
@@ -14,11 +15,16 @@ import {
   StopIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
-import { createProperty } from '@/app/lib/actions';
+import { createProperty, State } from '@/app/lib/actions';
+import { useActionState } from 'react';
 
 export default function Form({ frequencies }: { frequencies: FrequencyField[] }) {
+  
+  const initialState: State = { errors: {}, message: null };
+  const [state, formAction] = useActionState(createProperty, initialState);
+
   return (
-    <form action={createProperty}>
+    <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Property Name */}
         <div className="mb-4">
@@ -33,8 +39,16 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                 type="string"
                 placeholder="Nombre de propiedad"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                required
               />
               <HomeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            </div>
+            <div id="name-error" aria-live="polite" aria-atomic="true">
+              {state.errors?.name && state.errors.name.map((error: string) => (
+                <p className="mt-2 text-sm text-red-500" key={error}>
+                  {error}
+                </p>
+              ))}  
             </div>
           </div>
         </div>
@@ -52,6 +66,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         type="string"
                         placeholder="Calle"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        required
                     />
                     <Bars2Icon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
@@ -63,6 +78,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         type="string"
                         placeholder="Número"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        required
                     />
                     <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
@@ -191,6 +207,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                 type="string"
                 placeholder="Nombre de locador"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                required
               />
               <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
@@ -210,6 +227,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         type="string"
                         placeholder="Nombre de inquilino"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        required
                     />
                     <BoltIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
@@ -292,24 +310,32 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         Actualización
                     </label>
                     <select
-                    id="adjustment_frequency_id"
-                    name="adjustment_frequency_id"
-                    className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                    defaultValue=""
+                      id="adjustment_frequency_id"
+                      name="adjustment_frequency_id"
+                      className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                      defaultValue=""
+                      aria-describedby='adjustment-frequency-id-error'
                     >
-                    <option value="" disabled>
-                        Frecuencia
-                    </option>
-                    {frequencies.map((frequency) => (
-                        <option key={frequency.id} value={frequency.id}>
-                        {frequency.name}
-                        </option>
-                    ))}
+                      <option value="" disabled>
+                          Frecuencia
+                      </option>
+                      {frequencies.map((frequency) => (
+                          <option key={frequency.id} value={frequency.id}>
+                            {frequency.name}
+                          </option>
+                      ))}
                     </select>
                     <ClockIcon 
                         className="pointer-events-none absolute left-3 h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
                         style={{ top: '57%' }} 
                     />
+                  <div id="adjustment-frequency-id-error" aria-live="polite" aria-atomic="true">
+                    {state.errors?.adjustment_frequency_id && state.errors.adjustment_frequency_id.map((error: string) => (
+                      <p className="mt-2 text-sm text-red-500" key={error}>
+                        {error}
+                      </p>
+                    ))}  
+                  </div>
                 </div>
                 <div className="relative lg:grid-cols-1">
                     <label htmlFor="monthly_rent" className="mb-2 block text-sm font-medium">
@@ -326,6 +352,13 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         className="pointer-events-none absolute left-3 h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
                         style={{ top: '57%' }} 
                     />
+                  <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                    {state.errors?.monthly_rent && state.errors.monthly_rent.map((error: string) => (
+                      <p className="mt-2 text-sm text-red-500" key={error}>
+                        {error}
+                      </p>
+                    ))}  
+                  </div>
                 </div>
             </div>
         </div>
