@@ -3,7 +3,7 @@
 import {
   HomeIcon,
   HomeModernIcon,
-  DocumentCurrencyDollarIcon
+  DocumentTextIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -18,7 +18,7 @@ const links = [
     href: '/dashboard/properties',
     icon: HomeModernIcon,
   },
-  { name: 'Recibos', href: '/dashboard/receipts', icon: DocumentCurrencyDollarIcon },
+  { name: 'Recibos', href: '/dashboard/receipts', icon: DocumentTextIcon },
 ];
 
 export default function NavLinks() {
