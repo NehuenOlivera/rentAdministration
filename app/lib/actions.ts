@@ -57,16 +57,11 @@ export async function createProperty(prevState: State, formData: FormData) {
     });
 
     if (!validatedFields.success) {
-        console.log("Adentro del if");
-        console.log(validatedFields.error?.flatten().fieldErrors);
-
         return { 
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Faltan campos. Error al crear la propiedad'
         };
     }
-
-    console.log("Paso del if");
 
     const {
         name,
@@ -153,29 +148,8 @@ export async function createProperty(prevState: State, formData: FormData) {
 
 const UpdateProperty = PropertyFormSchema.omit({ id: true, city: true });
 
-export async function updateProperty(id: string, formData: FormData) {
-    const {
-        name,
-        street_name,
-        street_number,
-        floor_number,
-        apartment_number,
-        dgr_code,
-        municipal_code,
-        epec_client_number,
-        epec_contract_number,
-        water_contract_number,
-        landlord_name,
-        tenant_name,
-        tenant_cuit_cuil,
-        contact_person_name,
-        contact_person_phone,
-        start_date,
-        end_date,
-        adjustment_frequency_id,
-        monthly_rent,
-        comments,
-    } = UpdateProperty.parse({
+export async function updateProperty(id: string, prevState: State, formData: FormData) {
+    const validatedFields = UpdateProperty.safeParse({
         name: formData.get('name'),
         street_name: formData.get('street_name'),
         street_number: formData.get('street_number'),
@@ -197,6 +171,38 @@ export async function updateProperty(id: string, formData: FormData) {
         monthly_rent: formData.get('monthly_rent'),
         comments: formData.get('comments'),
     });
+
+    if (!validatedFields.success) {
+        console.log("Adentro del if");
+        console.log(validatedFields.error.flatten().fieldErrors);
+        return { 
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Faltan campos. Error al actualizar la propiedad'
+        };
+    }
+
+    const {
+        name,
+        street_name,
+        street_number,
+        floor_number,
+        apartment_number,
+        dgr_code,
+        municipal_code,
+        epec_client_number,
+        epec_contract_number,
+        water_contract_number,
+        landlord_name,
+        tenant_name,
+        tenant_cuit_cuil,
+        contact_person_name,
+        contact_person_phone,
+        start_date,
+        end_date,
+        adjustment_frequency_id,
+        monthly_rent,
+        comments,
+    } = validatedFields.data;
 
     const rent_amount_in_cents = monthly_rent * 100;
     const city = 'Córdoba';
@@ -233,8 +239,7 @@ export async function updateProperty(id: string, formData: FormData) {
         `;
 
     } catch (error) {
-        console.error('Database Error:', error);
-        throw new Error('Failed to update property.');
+        return { message: 'Database error: Error al crear la propiedad' };
     }
 
     revalidatePath('/dashboard/properties');
