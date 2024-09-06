@@ -315,6 +315,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                       className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                       defaultValue=""
                       aria-describedby='adjustment-frequency-id-error'
+                      required
                     >
                       <option value="" disabled>
                           Frecuencia
@@ -347,6 +348,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                         type="number"
                         placeholder="Precio Alquiler"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        required
                     />
                     <CurrencyDollarIcon 
                         className="pointer-events-none absolute left-3 h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
