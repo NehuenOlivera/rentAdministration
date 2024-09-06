@@ -362,11 +362,12 @@ export default function EditPropertyForm({
                     <input
                         id="monthly_rent"
                         name="monthly_rent"
-                        type="number"
+                        type="text"
                         defaultValue={property.monthly_rent}
                         placeholder="Precio Alquiler"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                         required
+                        pattern="\d+([.,]\d{1,2})?"
                     />
                     <CurrencyDollarIcon 
                         className="pointer-events-none absolute left-3 h-[18px] w-[18px] text-gray-500 peer-focus:text-gray-900"
