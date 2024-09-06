@@ -272,9 +272,9 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
             <label htmlFor="contract" className="mb-2 block text-sm font-medium">
                 Contrato
             </label>
-            <div className="mt-2 grid grid-cols-4 gap-2 sm:grid-cols-1 lg:grid-cols-4">
+            <div className="mt-2 grid gap-2 sm:grid-cols-1 lg:grid-cols-4">
                 <div className="relative lg:grid-cols-1">
-                    <label htmlFor="start_date" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="start_date" className="mt-2 block text-sm font-medium">
                         Inicio
                     </label>
                     <input
@@ -290,7 +290,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                     />
                 </div>
                 <div className="relative lg:grid-cols-1">
-                    <label htmlFor="end_date" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="end_date" className="mt-2 block text-sm font-medium">
                         Fin
                     </label>
                     <input
@@ -306,7 +306,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                     />
                 </div>
                 <div className="relative lg:grid-cols-1">
-                    <label htmlFor="adjustment_frequency_id" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="adjustment_frequency_id" className="mt-2 block text-sm font-medium">
                         Actualización
                     </label>
                     <select
@@ -339,7 +339,7 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                   </div>
                 </div>
                 <div className="relative lg:grid-cols-1">
-                    <label htmlFor="monthly_rent" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="monthly_rent" className="mt-2 block text-sm font-medium">
                         Precio Alquiler
                     </label>
                     <input
