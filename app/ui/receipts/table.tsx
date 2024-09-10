@@ -11,6 +11,13 @@ export default async function ReceiptsTable({
   const receipts = await fetchReceiptsFromProperty(propertyId);
 
   return (
+    // if receipts is empty, show a message indicating that there are no receipts for this property
+    receipts.length === 0 ? (
+      <div className="flex flex-col items-center justify-center p-4">
+        <p className="text-lg text-gray-600">No hay recibos para esta propiedad</p>
+      </div>
+    ) : (
+      // if receipts is not empty, show the receipts in a table
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
@@ -94,5 +101,5 @@ export default async function ReceiptsTable({
         </div>
       </div>
     </div>
-  );
+  ));
 }
