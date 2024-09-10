@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { UpdateReceipt, DeleteReceipt } from './buttons';
 import { formatDateToLocal, formatCurrency, formatMonthYear } from '@/app/lib/utils';
 import { fetchReceiptsFromProperty } from '@/app/lib/data';
@@ -42,8 +41,8 @@ export default async function ReceiptsTable({
                     </p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    {/* <UpdateProperty id={receipt.id} />
-                    <DeleteProperty id={receipt.id} /> */}
+                    <UpdateReceipt id={receipt.id} />
+                    <DeleteReceipt id={receipt.id} />
                   </div>
                 </div>
               </div>

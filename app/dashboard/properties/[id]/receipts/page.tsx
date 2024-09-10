@@ -1,6 +1,7 @@
 import Table from '@/app/ui/receipts/table';
 import { fetchPropertyById } from '@/app/lib/data';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import { CreateReceipt } from '@/app/ui/receipts/buttons';
  
 export default async function Page({ params }: { params: { id: string } }) {
 
@@ -20,6 +21,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         />
         <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
             <h1 className="text-2xl">{property.name}</h1>
+            <CreateReceipt />
         </div>
         <Table propertyId={property.id}/>
     </main>
