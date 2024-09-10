@@ -291,3 +291,54 @@ export async function fetchFilteredCustomers(query: string) {
     throw new Error('Failed to fetch customer table.');
   }
 }
+
+export async function fetchReceiptsFromProperty(
+  propertyId: string
+) {
+  try {
+    const receipts = await sql`
+      SELECT
+      rentreceipts.id,
+      rentreceipts.property_id,
+      rentreceipts.tenant_name,
+      rentreceipts.rental_period_start,
+      rentreceipts.rental_period_end,
+      rentreceipts.property_address,
+      rentreceipts.rent_amount,
+      rentreceipts.rent_paid,
+      rentreceipts.dgr_amount,
+      rentreceipts.dgr_paid,
+      rentreceipts.water_amount,
+      rentreceipts.water_paid,
+      rentreceipts.epec_amount,
+      rentreceipts.epec_paid,
+      rentreceipts.municipal_amount,
+      rentreceipts.municipal_paid,
+      rentreceipts.expenses_amount,
+      rentreceipts.expenses_paid,
+      rentreceipts.rentas_amount,
+      rentreceipts.rentas_paid,
+      rentreceipts.various_amount,
+      rentreceipts.various_paid,
+      rentreceipts.previous_balance,
+      rentreceipts.previous_balance_paid,
+      rentreceipts.total_amount,
+      CASE 
+        WHEN rentreceipts.rent_paid AND rentreceipts.dgr_paid AND rentreceipts.water_paid AND rentreceipts.epec_paid AND 
+            rentreceipts.municipal_paid AND rentreceipts.expenses_paid AND rentreceipts.rentas_paid AND 
+            rentreceipts.various_paid AND rentreceipts.previous_balance_paid 
+        THEN TRUE
+        ELSE FALSE
+      END AS isAllPaid
+      FROM properties
+      JOIN rentreceipts ON properties.id = rentreceipts.property_id
+      WHERE rentreceipts.property_id = ${propertyId}
+      ORDER BY rentreceipts.rental_period_start DESC      
+    `;
+
+    return receipts.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch receipts from property.');
+  }
+}

@@ -21,6 +21,18 @@ export const formatDateToLocal = (
   return formatter.format(date);
 };
 
+// Format the date to be displayed in spanish in the format "month year" (e.g. "Enero 2022")
+export const formatMonthYear = (dateStr: string) => {
+  const date = new Date(dateStr);
+  const options: Intl.DateTimeFormatOptions = {
+    month: 'long',
+    year: 'numeric',
+  };
+  const formatter = new Intl.DateTimeFormat('es-ES', options);
+  const formattedDate = formatter.format(date);
+  return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+};
+
 export const generateYAxis = (revenue: Revenue[]) => {
   // Calculate what labels we need to display on the y-axis
   // based on highest record and in 1000s

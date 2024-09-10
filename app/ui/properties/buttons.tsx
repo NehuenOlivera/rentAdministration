@@ -1,4 +1,4 @@
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { DocumentTextIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { deleteProperty } from '@/app/lib/actions';
 
@@ -36,5 +36,17 @@ export function DeleteProperty({ id }: { id: string }) {
         <TrashIcon className="w-5" />
       </button>
     </form>
+  );
+}
+
+export function GetPropertyReceipts({ propertyId }: { propertyId: string }) {
+  console.log("Este ID llega al getPropertyReceipts: ", propertyId);
+  return (
+    <Link
+      href={`/dashboard/properties/${propertyId}/receipts`}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <DocumentTextIcon className="w-5" />
+    </Link>
   );
 }
