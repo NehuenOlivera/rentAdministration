@@ -141,3 +141,31 @@ export type PropertyForm = {
   adjustment_frequency_id: number;
   comments: string;
 };
+
+export type ReceiptForm = {
+  id: string;
+  property_id: string;
+  tenant_name: string;
+  rental_period_start: string;
+  rental_period_end: string;
+  property_address: string;
+  rent_amount: number;
+  rent_paid: boolean;
+  dgr_amount: number;
+  dgr_paid: boolean;
+  water_amount: number;
+  water_paid: boolean;
+  epec_amount: number;
+  epec_paid: boolean;
+  municipal_amount: number;
+  municipal_paid: boolean;
+  expenses_amount: number;
+  expenses_paid: boolean;
+  rentas_amount: number;
+  rentas_paid: boolean;
+  various_amount: number;
+  various_paid: boolean;
+  previous_balance: number;
+  previous_balance_paid: boolean;
+  total_amount: number;
+};

@@ -15,7 +15,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
-import { updateProperty, State } from '@/app/lib/actions';
+import { updateProperty, PropertyState } from '@/app/lib/actions';
 import { useActionState } from 'react';
 
 export default function EditPropertyForm({
@@ -26,7 +26,7 @@ export default function EditPropertyForm({
     frequencies: FrequencyField[];
 }) {
 
-  const initialState: State = { errors: {}, message: null };
+  const initialState: PropertyState = { errors: {}, message: null };
   const updatePropertyWithId = updateProperty.bind(null, property.id);
 
   const [state, formAction] = useActionState(updatePropertyWithId, initialState);

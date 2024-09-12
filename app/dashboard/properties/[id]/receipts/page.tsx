@@ -21,7 +21,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         />
         <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
             <h1 className="text-2xl">{property.name}</h1>
-            <CreateReceipt />
+            <CreateReceipt propertyId={property.id} />
         </div>
         <Table propertyId={property.id}/>
     </main>

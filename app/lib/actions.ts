@@ -34,7 +34,7 @@ const PropertyFormSchema = z.object({
 
 const CreateProperty = PropertyFormSchema.omit({ id: true, city: true });
 
-export async function createProperty(prevState: State, formData: FormData) {
+export async function createProperty(prevState: PropertyState, formData: FormData) {
     const validatedFields = CreateProperty.safeParse({
         name: formData.get('name'),
         street_name: formData.get('street_name'),
@@ -150,7 +150,7 @@ export async function createProperty(prevState: State, formData: FormData) {
 
 const UpdateProperty = PropertyFormSchema.omit({ id: true, city: true });
 
-export async function updateProperty(id: string, prevState: State, formData: FormData) {
+export async function updateProperty(id: string, prevState: PropertyState, formData: FormData) {
     const validatedFields = UpdateProperty.safeParse({
         name: formData.get('name'),
         street_name: formData.get('street_name'),
@@ -175,8 +175,6 @@ export async function updateProperty(id: string, prevState: State, formData: For
     });
 
     if (!validatedFields.success) {
-        console.log("Adentro del if");
-        console.log(validatedFields.error.flatten().fieldErrors);
         return { 
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Faltan campos. Error al actualizar la propiedad'
@@ -258,7 +256,7 @@ export async function deleteProperty(id: string) {
     }
   }
 
-export type State = {
+export type PropertyState = {
     errors?: {
         name?: string[];
         street_name?: string[];
@@ -284,6 +282,35 @@ export type State = {
     message?: string | null;
 }
 
+export type ReceiptState = {
+    errors?: {
+        tenant_name?: string[];
+        rental_period_start?: string[];
+        rental_period_end?: string[];
+        property_address?: string[];
+        rent_amount?: string[];
+        rent_paid?: string[];
+        dgr_amount?: string[];
+        dgr_paid?: string[];
+        water_amount?: string[];
+        water_paid?: string[];
+        epec_amount?: string[];
+        epec_paid?: string[];
+        municipal_amount?: string[];
+        municipal_paid?: string[];
+        expenses_amount?: string[];
+        expenses_paid?: string[];
+        rentas_amount?: string[];
+        rentas_paid?: string[];
+        various_amount?: string[];
+        various_paid?: string[];
+        previous_balance?: string[];
+        previous_balance_paid?: string[];
+        total_amount?: string[];
+    };
+    message?: string | null;
+}
+
 export async function authenticate(prevState: string | undefined, formData: FormData) {
 
     try {
@@ -299,4 +326,170 @@ export async function authenticate(prevState: string | undefined, formData: Form
         }
         throw error
     }
+}
+
+const ReceiptFormSchema = z.object({
+    id: z.string(),
+    property_id: z.string(),
+    tenant_name: z.string(),
+    rental_period_start: z.string(),
+    rental_period_end: z.string(),
+    property_address: z.string(),
+    rent_amount: z.coerce.number(),
+    rent_paid: z.boolean(),
+    dgr_amount: z.coerce.number(),
+    dgr_paid: z.boolean(),
+    water_amount: z.coerce.number(),
+    water_paid: z.boolean(),
+    epec_amount: z.coerce.number(),
+    epec_paid: z.boolean(),
+    municipal_amount: z.coerce.number(),
+    municipal_paid: z.boolean(),
+    expenses_amount: z.coerce.number(),
+    expenses_paid: z.boolean(),
+    rentas_amount: z.coerce.number(),
+    rentas_paid: z.boolean(),
+    various_amount: z.coerce.number(),
+    various_paid: z.boolean(),
+    previous_balance: z.coerce.number(),
+    previous_balance_paid: z.boolean(),
+    total_amount: z.coerce.number(),
+});
+
+const CreateReceipt = ReceiptFormSchema.omit({ id: true });
+
+export async function createReceiptFromProperty(propertyId: string, prevState: PropertyState, formData: FormData) {
+    const validatedFields = CreateReceipt.safeParse({
+        property_id: propertyId,
+        tenant_name: formData.get('tenant_name'),
+        rental_period_start: formData.get('rental_period_start'),
+        rental_period_end: formData.get('rental_period_end'),
+        property_address: formData.get('property_address'),
+        rent_amount: formData.get('rent_amount'),
+        rent_paid: formData.get('rent_paid'),
+        dgr_amount: formData.get('dgr_amount'),
+        dgr_paid: formData.get('dgr_paid'),
+        water_amount: formData.get('water_amount'),
+        water_paid: formData.get('water_paid'),
+        epec_amount: formData.get('epec_amount'),
+        epec_paid: formData.get('epec_paid'),
+        municipal_amount: formData.get('municipal_amount'),
+        municipal_paid: formData.get('municipal_paid'),
+        expenses_amount: formData.get('expenses_amount'),
+        expenses_paid: formData.get('expenses_paid'),
+        rentas_amount: formData.get('rentas_amount'),
+        rentas_paid: formData.get('rentas_paid'),
+        various_amount: formData.get('various_amount'),
+        various_paid: formData.get('various_paid'),
+        previous_balance: formData.get('previous_balance'),
+        previous_balance_paid: formData.get('previous_balance_paid'),
+        total_amount: formData.get('total_amount'),
+    });
+
+    if (!validatedFields.success) {
+        return { 
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Faltan campos. Error al crear el recibo'
+        };
+    }
+
+    const {
+        tenant_name,
+        rental_period_start,
+        rental_period_end,
+        property_address,
+        rent_amount,
+        rent_paid,
+        dgr_amount,
+        dgr_paid,
+        water_amount,
+        water_paid,
+        epec_amount,
+        epec_paid,
+        municipal_amount,
+        municipal_paid,
+        expenses_amount,
+        expenses_paid,
+        rentas_amount,
+        rentas_paid,
+        various_amount,
+        various_paid,
+        previous_balance,
+        previous_balance_paid,
+        total_amount,
+    } = validatedFields.data;
+
+    const rent_amount_in_cents = rent_amount * 100;
+    const dgr_amount_in_cents = dgr_amount * 100;
+    const water_amount_in_cents = water_amount * 100;
+    const epec_amount_in_cents = epec_amount * 100;
+    const municipal_amount_in_cents = municipal_amount * 100;
+    const expenses_amount_in_cents = expenses_amount * 100;
+    const rentas_amount_in_cents = rentas_amount * 100;
+    const various_amount_in_cents = various_amount * 100;
+    const previous_balance_in_cents = previous_balance * 100;
+    const total_amount_in_cents = total_amount * 100;
+
+    try {
+        await sql`
+            INSERT INTO rentreceipts (
+                property_id,
+                tenant_name,
+                rental_period_start,
+                rental_period_end,
+                property_address,
+                rent_amount,
+                rent_paid,
+                dgr_amount,
+                dgr_paid,
+                water_amount,
+                water_paid,
+                epec_amount,
+                epec_paid,
+                municipal_amount,
+                municipal_paid,
+                expenses_amount,
+                expenses_paid,
+                rentas_amount,
+                rentas_paid,
+                various_amount,
+                various_paid,
+                previous_balance,
+                previous_balance_paid,
+                total_amount
+            )
+            VALUES (
+                ${propertyId},
+                ${tenant_name},
+                ${rental_period_start},
+                ${rental_period_end},
+                ${property_address},
+                ${rent_amount_in_cents},
+                ${rent_paid},
+                ${dgr_amount_in_cents},
+                ${dgr_paid},
+                ${water_amount_in_cents},
+                ${water_paid},
+                ${epec_amount_in_cents},
+                ${epec_paid},
+                ${municipal_amount_in_cents},
+                ${municipal_paid},
+                ${expenses_amount_in_cents},
+                ${expenses_paid},
+                ${rentas_amount_in_cents},
+                ${rentas_paid},
+                ${various_amount_in_cents},
+                ${various_paid},
+                ${previous_balance_in_cents},
+                ${previous_balance_paid},
+                ${total_amount_in_cents}
+            )
+        `;
+    }
+    catch (error) {
+        return { message: 'Database error: Error al crear el recibo' };
+    }
+
+    revalidatePath(`/dashboard/properties/${propertyId}/receipts`);
+    redirect(`/dashboard/properties/${propertyId}/receipts`);
 }

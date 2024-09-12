@@ -40,7 +40,6 @@ export function DeleteProperty({ id }: { id: string }) {
 }
 
 export function GetPropertyReceipts({ propertyId }: { propertyId: string }) {
-  console.log("Este ID llega al getPropertyReceipts: ", propertyId);
   return (
     <Link
       href={`/dashboard/properties/${propertyId}/receipts`}

@@ -15,12 +15,12 @@ import {
   StopIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
-import { createProperty, State } from '@/app/lib/actions';
+import { createProperty, PropertyState } from '@/app/lib/actions';
 import { useActionState } from 'react';
 
 export default function Form({ frequencies }: { frequencies: FrequencyField[] }) {
   
-  const initialState: State = { errors: {}, message: null };
+  const initialState: PropertyState = { errors: {}, message: null };
   const [state, formAction] = useActionState(createProperty, initialState);
 
   return (
