@@ -1,5 +1,5 @@
 import { UpdateReceipt, DeleteReceipt } from './buttons';
-import { formatDateToLocal, formatCurrency, formatMonthYear } from '@/app/lib/utils';
+import { formatCurrency, formatMonthYear } from '@/app/lib/utils';
 import { fetchReceiptsFromProperty } from '@/app/lib/data';
 
 export default async function ReceiptsTable({
@@ -28,7 +28,7 @@ export default async function ReceiptsTable({
               >
                 <div className="flex items-center justify-between border-b pb-4">
                     <div className="mb-2 flex items-center">
-                      <p>{formatDateToLocal(receipt.rental_period_start)}</p>
+                      <p>{formatMonthYear(receipt.rental_period_start)}</p>
                   </div>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
