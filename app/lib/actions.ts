@@ -254,7 +254,7 @@ export async function deleteProperty(id: string) {
     } catch (error) {
         return { message: 'Database error: Error al eliminar la propiedad' };
     }
-  }
+}
 
 export type PropertyState = {
     errors?: {
@@ -491,4 +491,14 @@ export async function createReceiptFromProperty(propertyId: string, prevState: P
 
     revalidatePath(`/dashboard/properties/${propertyId}/receipts`);
     redirect(`/dashboard/properties/${propertyId}/receipts`);
+}
+
+export async function deleteReceipt(id: string, propertyId: string) {
+    try {
+        await sql`DELETE FROM rentreceipts WHERE id = ${id}`;
+        revalidatePath(`/dashboard/properties/${propertyId}/receipts`);
+        return { message: 'Recibo eliminado' };
+    } catch (error) {
+        return { message: 'Database error: Error al eliminar el recibo' };
+    }
 }

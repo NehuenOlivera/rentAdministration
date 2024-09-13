@@ -1,5 +1,7 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { deleteReceipt } from '@/app/lib/actions';
+
 
 export function CreateReceipt({ propertyId }: { propertyId: string }) {
   return (
@@ -24,14 +26,12 @@ export function UpdateReceipt({ id }: { id: string }) {
   );
 }
 
-export function DeleteReceipt({ id }: { id: string }) {
+export function DeleteReceipt({ id, propertyId }: { id: string, propertyId: string }) {
 
-    // TO DO: implement deleteReceipt function
-
-//   const deletePropertyWithId = deleteProperty.bind(null, id);
+  const deleteReceiptWithId = deleteReceipt.bind(null, id, propertyId);
 
   return (
-    <form /*action={deletePropertyWithId}*/>
+    <form action={deleteReceiptWithId}>
       <button className="rounded-md border p-2 bg-gray-100 hover:bg-red-300">
         <span className="sr-only">Borrar</span>
         <TrashIcon className="w-5" />
