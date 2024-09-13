@@ -153,7 +153,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.dgr_paid} inputName="dgr_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={receipt.dgr_paid} inputName="dgr_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -183,7 +183,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.water_paid} inputName="water_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={receipt.water_paid} inputName="water_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -213,7 +213,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                     <LightBulbIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.epec_paid} inputName="epec_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={receipt.epec_paid} inputName="epec_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -243,7 +243,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.municipal_paid} inputName="municipal_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={receipt.municipal_paid} inputName="municipal_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -273,7 +273,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.expenses_paid} inputName="expenses_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={receipt.expenses_paid} inputName="expenses_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -303,7 +303,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.rentas_paid} inputName="rentas_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={receipt.rentas_paid} inputName="rentas_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -333,7 +333,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.various_paid} inputName="various_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={receipt.various_paid} inputName="various_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -363,7 +363,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.previous_balance_paid} inputName="previous_balance_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={receipt.previous_balance_paid} inputName="previous_balance_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">

@@ -11,7 +11,7 @@ export default async function Page() {
         breadcrumbs={[
           { label: 'Propiedades', href: '/dashboard/properties' },
           {
-            label: 'Crear Propiedades',
+            label: 'Crear Propiedad',
             href: '/dashboard/properties/create',
             active: true,
           },

@@ -1,7 +1,9 @@
 import Form from '@/app/ui/receipts/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchReceiptById } from '@/app/lib/data';
+import { fetchReceiptById, fetchPropertyById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+import { clsx } from 'clsx';
+import { lusitana } from '@/app/ui/fonts';
 
  
 export default async function Page({ params }: { params: { receiptId: string } }) {
@@ -10,6 +12,7 @@ export default async function Page({ params }: { params: { receiptId: string } }
     if (!receipt) {
         notFound();
     }
+    const property = await fetchPropertyById(receipt.property_id);
     // Modify the receipt start_date and end_date to be a string
     receipt.rental_period_start = new Date(receipt.rental_period_start).toISOString().split('T')[0];
     receipt.rental_period_end = new Date(receipt.rental_period_end).toISOString().split('T')[0];
@@ -18,14 +21,18 @@ export default async function Page({ params }: { params: { receiptId: string } }
         <main>
         <Breadcrumbs
             breadcrumbs={[
-            { label: 'Recibos', href: `/dashboard/properties/${receipt.property_id}/receipts` },
-            {
-                label: 'Editar Recibo',
-                href: '/dashboard/receipts/create',
-                active: true,
-            },
+                { label: `Propiedades`, href: `/dashboard/properties/` },
+                { label: 'Recibos', href: `/dashboard/properties/${receipt.property_id}/receipts` },
+                {
+                    label: 'Editar Recibo',
+                    href: `/dashboard/properties/${receipt.property_id}/receipts/${receipt.id}/edit`,
+                    active: true,
+                },
             ]}
         />
+        <div>
+            <h1 className={clsx(lusitana.className,"text-3xl mb-5")}>{property.name}</h1>
+        </div>
         <Form receipt={receipt} />
         </main>
     );

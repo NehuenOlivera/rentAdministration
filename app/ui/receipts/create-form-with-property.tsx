@@ -150,7 +150,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={false} inputName="dgr_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={false} inputName="dgr_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -179,7 +179,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={false} inputName="water_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={false} inputName="water_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -208,7 +208,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <LightBulbIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={false} inputName="epec_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={false} inputName="epec_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -237,7 +237,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={false} inputName="municipal_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={false} inputName="municipal_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -267,7 +267,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={false} inputName="expenses_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={false} inputName="expenses_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -296,7 +296,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={false} inputName="rentas_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={false} inputName="rentas_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -325,7 +325,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={false} inputName="various_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={false} inputName="various_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
@@ -354,7 +354,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
-                    <Toggle labelOff="Debe" labelOn="Pagado" initialState={false} inputName="previous_balance_paid" />
+                    <Toggle labelOff="" labelOn="" initialState={false} inputName="previous_balance_paid" />
                 </div>
             </div>
             <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
