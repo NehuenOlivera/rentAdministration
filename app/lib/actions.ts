@@ -366,26 +366,25 @@ export async function createReceiptFromProperty(propertyId: string, prevState: P
         rental_period_end: formData.get('rental_period_end'),
         property_address: formData.get('property_address'),
         rent_amount: formData.get('rent_amount'),
-        rent_paid: formData.get('rent_paid'),
+        rent_paid: formData.get('rent_paid') === 'true',
         dgr_amount: formData.get('dgr_amount'),
-        dgr_paid: formData.get('dgr_paid'),
+        dgr_paid: formData.get('dgr_paid') === 'true',
         water_amount: formData.get('water_amount'),
-        water_paid: formData.get('water_paid'),
+        water_paid: formData.get('water_paid') === 'true',
         epec_amount: formData.get('epec_amount'),
-        epec_paid: formData.get('epec_paid'),
+        epec_paid: formData.get('epec_paid') === 'true',
         municipal_amount: formData.get('municipal_amount'),
-        municipal_paid: formData.get('municipal_paid'),
+        municipal_paid: formData.get('municipal_paid') === 'true',
         expenses_amount: formData.get('expenses_amount'),
-        expenses_paid: formData.get('expenses_paid'),
+        expenses_paid: formData.get('expenses_paid') === 'true',
         rentas_amount: formData.get('rentas_amount'),
-        rentas_paid: formData.get('rentas_paid'),
+        rentas_paid: formData.get('rentas_paid') === 'true',
         various_amount: formData.get('various_amount'),
-        various_paid: formData.get('various_paid'),
+        various_paid: formData.get('various_paid') === 'true',
         previous_balance: formData.get('previous_balance'),
-        previous_balance_paid: formData.get('previous_balance_paid'),
+        previous_balance_paid: formData.get('previous_balance_paid') === 'true',
         total_amount: formData.get('total_amount'),
     });
-
     if (!validatedFields.success) {
         return { 
             errors: validatedFields.error.flatten().fieldErrors,
@@ -428,7 +427,7 @@ export async function createReceiptFromProperty(propertyId: string, prevState: P
     const rentas_amount_in_cents = rentas_amount * 100;
     const various_amount_in_cents = various_amount * 100;
     const previous_balance_in_cents = previous_balance * 100;
-    const total_amount_in_cents = total_amount * 100;
+    const total_amount_in_cents = rent_amount_in_cents + dgr_amount_in_cents + water_amount_in_cents + epec_amount_in_cents + municipal_amount_in_cents + expenses_amount_in_cents + rentas_amount_in_cents + various_amount_in_cents + previous_balance_in_cents;
 
     try {
         await sql`
