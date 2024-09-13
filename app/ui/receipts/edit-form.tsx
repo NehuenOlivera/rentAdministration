@@ -46,37 +46,45 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
 
         {/* Period being checked */}
         <div className="mb-4">
-          <label htmlFor="rental_period_start" className="mb-2 block text-sm font-medium">
+          <label className="mb-2 block text-sm font-medium">
             Periodo
           </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="rental_period_start"
-                name="rental_period_start"
-                type="date"
-                defaultValue={receipt.rental_period_start}
-                placeholder="Periodo de recibo"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                required
-              />
-              <CalendarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-            </div>
-          </div>
+          <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-1 lg:grid-cols-2">
+              <div className="relative mt-2 rounded-md flex items-center space-x-2">
+                <label className="text-sm font-medium w-16" htmlFor="rental_period_start">
+                  Desde
+                </label>
+                <div className="relative w-full">
+                  <input
+                    id="rental_period_start"
+                    name="rental_period_start"
+                    type="date"
+                    defaultValue={receipt.rental_period_start}
+                    placeholder="Periodo de recibo"
+                    className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    required
+                  />
+                  <CalendarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </div>
+              </div>
 
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="rental_period_end"
-                name="rental_period_end"
-                type="date"
-                defaultValue={receipt.rental_period_end}
-                placeholder="Periodo de recibo"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                required
-              />
-              <CalendarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-            </div>
+              <div className="relative mt-2 rounded-md flex items-center space-x-2">
+                <label className="text-sm font-medium w-16" htmlFor="rental_period_end">
+                  Hasta
+                </label>
+                <div className="relative w-full">
+                  <input
+                    id="rental_period_end"
+                    name="rental_period_end"
+                    type="date"
+                    defaultValue={receipt.rental_period_end}
+                    placeholder="Periodo de recibo"
+                    className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                    required
+                  />
+                  <CalendarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                </div>
+              </div>
           </div>
         </div>
 
