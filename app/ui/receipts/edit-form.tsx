@@ -118,7 +118,6 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         type="string"
                         placeholder="Monto de alquiler"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                         defaultValue={receipt.rent_amount}
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -126,6 +125,13 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="" labelOn="" initialState={receipt.rent_paid} inputName="rent_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.rent_amount && state.errors.rent_amount.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
 
@@ -143,13 +149,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         defaultValue={receipt.dgr_amount}
                         placeholder="Monto DGR"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.dgr_paid} inputName="dgr_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.dgr_amount && state.errors.dgr_amount.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
 
@@ -167,13 +179,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         defaultValue={receipt.water_amount}
                         placeholder="Monto de Aguas"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.water_paid} inputName="water_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.water_amount && state.errors.water_amount.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
 
@@ -191,13 +209,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         defaultValue={receipt.epec_amount}
                         placeholder="Monto de electricidad"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                     />
                     <LightBulbIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.epec_paid} inputName="epec_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.epec_amount && state.errors.epec_amount.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
 
@@ -215,13 +239,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         defaultValue={receipt.municipal_amount}
                         placeholder="Monto de municipalidad"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.municipal_paid} inputName="municipal_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.municipal_amount && state.errors.municipal_amount.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
 
@@ -239,13 +269,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         defaultValue={receipt.expenses_amount}
                         placeholder="Monto de expensas"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.expenses_paid} inputName="expenses_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.expenses_amount && state.errors.expenses_amount.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
 
@@ -263,13 +299,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         defaultValue={receipt.rentas_amount}
                         placeholder="Monto de rentas"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.rentas_paid} inputName="rentas_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.rentas_amount && state.errors.rentas_amount.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
 
@@ -287,13 +329,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         defaultValue={receipt.various_amount}
                         placeholder="Monto de varios"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.various_paid} inputName="various_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.various_amount && state.errors.various_amount.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
 
@@ -311,13 +359,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                         defaultValue={receipt.previous_balance}
                         placeholder="Monto de alquiler"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
                 <div className="relative lg:col-span-1">
                     <Toggle labelOff="Debe" labelOn="Pagado" initialState={receipt.previous_balance_paid} inputName="previous_balance_paid" />
                 </div>
+            </div>
+            <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
+                {state.errors?.previous_balance && state.errors.previous_balance.map((error: string) => (
+                  <p className="mt-2 text-sm text-red-500" key={error}>
+                    Ingrese un monto válido
+                  </p>
+                ))}  
             </div>
         </div>
       </div>
@@ -331,7 +385,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
         >
           Cancelar
         </Link>
-        <Button type="submit">Crear Recibo</Button>
+        <Button type="submit">Editar Recibo</Button>
       </div>
     </form>
   );
