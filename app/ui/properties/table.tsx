@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { UpdateProperty, DeleteProperty, GetPropertyReceipts } from './buttons';
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
+import { formatDateToLocal, formatCurrency, formatMonthYear } from '@/app/lib/utils';
 import { fetchFilteredProperties } from '@/app/lib/data';
 
 export default async function PropertiesTable({
@@ -42,9 +42,9 @@ export default async function PropertiesTable({
                     <p className="text-xl font-medium">
                       {formatCurrency(property.monthly_rent)}
                     </p>
-                    <p>{formatDateToLocal(property.start_date)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
+                    <GetPropertyReceipts propertyId={property.id} />
                     <UpdateProperty id={property.id} />
                     <DeleteProperty id={property.id} />
                   </div>
@@ -63,9 +63,6 @@ export default async function PropertiesTable({
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Alquiler
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Fecha de inicio
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Comentarios
@@ -99,10 +96,7 @@ export default async function PropertiesTable({
                   <td className="whitespace-nowrap px-3 py-3">
                     {formatCurrency(property.monthly_rent)}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {formatDateToLocal(property.start_date)}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
+                  <td className="whitespace-nowrap px-3 py-3 lg:max-w-xs truncate">
                     {property.comments}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
