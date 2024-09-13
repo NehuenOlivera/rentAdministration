@@ -8,6 +8,7 @@ import {
   LatestInvoiceRaw,
   PropertiesTable,
   PropertyForm,
+  ReceiptForm,
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
@@ -340,5 +341,35 @@ export async function fetchReceiptsFromProperty(
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch receipts from property.');
+  }
+}
+
+export async function fetchReceiptById(id: string) {
+  try {
+    const data = await sql<ReceiptForm>`
+      SELECT *
+      FROM rentreceipts
+      WHERE rentreceipts.id = ${id};
+    `;
+
+    const receipt = data.rows.map((receipt) => ({
+      ...receipt,
+      // Convert rent amount from cents to dollars
+      rent_amount: receipt.rent_amount / 100,
+      dgr_amount: receipt.dgr_amount / 100,
+      water_amount: receipt.water_amount / 100,
+      epec_amount: receipt.epec_amount / 100,
+      municipal_amount: receipt.municipal_amount / 100,
+      expenses_amount: receipt.expenses_amount / 100,
+      rentas_amount: receipt.rentas_amount / 100,
+      various_amount: receipt.various_amount / 100,
+      previous_balance: receipt.previous_balance / 100,
+      total_amount: receipt.total_amount / 100,
+    }));
+
+    return receipt[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch property.');
   }
 }

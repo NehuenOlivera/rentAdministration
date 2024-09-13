@@ -15,10 +15,10 @@ export function CreateReceipt({ propertyId }: { propertyId: string }) {
   );
 }
 
-export function UpdateReceipt({ id }: { id: string }) {
+export function UpdateReceipt({ id, propertyId }: { id: string, propertyId: string }) {
   return (
     <Link
-      href={`/dashboard/receipts/${id}/edit`}
+      href={`/dashboard/properties/${propertyId}/receipts/${id}/edit`}
       className="rounded-md border p-2 bg-gray-100 hover:bg-blue-300"
     >
       <PencilIcon className="w-5" />

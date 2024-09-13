@@ -41,7 +41,7 @@ export default async function ReceiptsTable({
                     </p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateReceipt id={receipt.id} />
+                    <UpdateReceipt id={receipt.id} propertyId={propertyId} />
                     <DeleteReceipt id={receipt.id} propertyId={propertyId} />
                   </div>
                 </div>
@@ -89,7 +89,7 @@ export default async function ReceiptsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateReceipt id={receipt.id} />
+                      <UpdateReceipt id={receipt.id} propertyId={propertyId} />
                       <DeleteReceipt id={receipt.id} propertyId={propertyId} />
                     </div>
                   </td>

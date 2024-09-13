@@ -239,7 +239,7 @@ export async function updateProperty(id: string, prevState: PropertyState, formD
         `;
 
     } catch (error) {
-        return { message: 'Database error: Error al crear la propiedad' };
+        return { message: 'Database error: Error al editar la propiedad' };
     }
 
     revalidatePath('/dashboard/properties');
@@ -501,4 +501,121 @@ export async function deleteReceipt(id: string, propertyId: string) {
     } catch (error) {
         return { message: 'Database error: Error al eliminar el recibo' };
     }
+}
+
+const UpdateReceipt = ReceiptFormSchema.omit({ id: true });
+
+export async function updateReceipt(id: string, prevState: PropertyState, formData: FormData) {
+    const validatedFields = UpdateReceipt.safeParse({
+        property_id: formData.get('property_id'),
+        tenant_name: formData.get('tenant_name'),
+        rental_period_start: formData.get('rental_period_start'),
+        rental_period_end: formData.get('rental_period_end'),
+        property_address: formData.get('property_address'),
+        rent_amount: formData.get('rent_amount'),
+        rent_paid: formData.get('rent_paid') === 'true',
+        dgr_amount: formData.get('dgr_amount'),
+        dgr_paid: formData.get('dgr_paid') === 'true',
+        water_amount: formData.get('water_amount'),
+        water_paid: formData.get('water_paid') === 'true',
+        epec_amount: formData.get('epec_amount'),
+        epec_paid: formData.get('epec_paid') === 'true',
+        municipal_amount: formData.get('municipal_amount'),
+        municipal_paid: formData.get('municipal_paid') === 'true',
+        expenses_amount: formData.get('expenses_amount'),
+        expenses_paid: formData.get('expenses_paid') === 'true',
+        rentas_amount: formData.get('rentas_amount'),
+        rentas_paid: formData.get('rentas_paid') === 'true',
+        various_amount: formData.get('various_amount'),
+        various_paid: formData.get('various_paid') === 'true',
+        previous_balance: formData.get('previous_balance'),
+        previous_balance_paid: formData.get('previous_balance_paid') === 'true',
+        total_amount: formData.get('total_amount'),
+    });
+
+    if (!validatedFields.success) {
+        return { 
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Faltan campos. Error al actualizar el recibo'
+        };
+    }
+
+    const {
+        property_id,
+        tenant_name,
+        rental_period_start,
+        rental_period_end,
+        property_address,
+        rent_amount,
+        rent_paid,
+        dgr_amount,
+        dgr_paid,
+        water_amount,
+        water_paid,
+        epec_amount,
+        epec_paid,
+        municipal_amount,
+        municipal_paid,
+        expenses_amount,
+        expenses_paid,
+        rentas_amount,
+        rentas_paid,
+        various_amount,
+        various_paid,
+        previous_balance,
+        previous_balance_paid,
+        total_amount,
+    } = validatedFields.data;
+
+    const rent_amount_in_cents = rent_amount * 100;
+    const dgr_amount_in_cents = dgr_amount * 100;
+    const water_amount_in_cents = water_amount * 100;
+    const epec_amount_in_cents = epec_amount * 100;
+    const municipal_amount_in_cents = municipal_amount * 100;
+    const expenses_amount_in_cents = expenses_amount * 100;
+    const rentas_amount_in_cents = rentas_amount * 100;
+    const various_amount_in_cents = various_amount * 100;
+    const previous_balance_in_cents = previous_balance * 100;
+    const total_amount_in_cents = rent_amount_in_cents + dgr_amount_in_cents + water_amount_in_cents + epec_amount_in_cents + municipal_amount_in_cents + expenses_amount_in_cents + rentas_amount_in_cents + various_amount_in_cents + previous_balance_in_cents;
+
+    const new_start_date = rental_period_start === '' ? new Date().toISOString().split('T')[0] : rental_period_start;
+    const new_end_date = rental_period_end === '' ? new Date().toISOString().split('T')[0] : rental_period_end;
+
+    try {
+        await sql`
+            UPDATE rentreceipts
+            SET
+                property_id = ${property_id},
+                tenant_name = ${tenant_name},
+                rental_period_start = ${new_start_date},
+                rental_period_end = ${new_end_date},
+                property_address = ${property_address},
+                rent_amount = ${rent_amount_in_cents},
+                rent_paid = ${rent_paid},
+                dgr_amount = ${dgr_amount_in_cents},
+                dgr_paid = ${dgr_paid},
+                water_amount = ${water_amount_in_cents},
+                water_paid = ${water_paid},
+                epec_amount = ${epec_amount_in_cents},
+                epec_paid = ${epec_paid},
+                municipal_amount = ${municipal_amount_in_cents},
+                municipal_paid = ${municipal_paid},
+                expenses_amount = ${expenses_amount_in_cents},
+                expenses_paid = ${expenses_paid},
+                rentas_amount = ${rentas_amount_in_cents},
+                rentas_paid = ${rentas_paid},
+                various_amount = ${various_amount_in_cents},
+                various_paid = ${various_paid},
+                previous_balance = ${previous_balance_in_cents},
+                previous_balance_paid = ${previous_balance_paid},
+                total_amount = ${total_amount_in_cents}
+            WHERE id = ${id}
+        `;
+
+    } catch (error) {
+        return { message: 'Database error: Error al editar el recibo' };
+    }
+
+    revalidatePath(`/dashboard/properties/${property_id}/receipts`);
+    redirect(`/dashboard/properties/${property_id}/receipts`);
 }
