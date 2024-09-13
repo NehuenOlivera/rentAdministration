@@ -24,7 +24,7 @@ export default async function ReceiptsTable({
             {receipts?.map((receipt) => (
               <div
                 key={receipt.id}
-                className="mb-2 w-full rounded-md bg-white p-4"
+                className={`mb-2 w-full rounded-md p-4 ${receipt.isallpaid ? 'bg-green-100' : 'bg-red-100'}`}
               >
                 <div className="flex items-center justify-between border-b pb-4">
                     <div className="mb-2 flex items-center">
