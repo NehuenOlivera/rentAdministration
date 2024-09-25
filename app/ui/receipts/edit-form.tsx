@@ -22,49 +22,108 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
 
   const printReceipt = async () => {
     const doc = new jsPDF();
+    const leftMargin = 20;
+    let verticalPosition = 20;
 
-    doc.text("Recibo de alquiler mensual", 75, 10);
-    doc.text("Inquilino: ", 10, 25);
-    doc.text(receipt.tenant_name, 40, 25);
-    doc.text("Periodo: ", 10, 35);
-    doc.text(`${receipt.rental_period_start} - ${receipt.rental_period_end}`, 40, 35);
-    doc.text("Dirección: ", 10, 45);
-    doc.text(receipt.property_address, 40, 45);
+    // Ancho total de la página
+    const pageWidth = doc.internal.pageSize.getWidth();
 
-    doc.text("Detalle", 75, 65);
-    doc.text("Alquiler: ", 10, 75);
-    doc.text(`$${receipt.rent_amount}`, 50, 75);
+    doc.setFontSize(16);
+    const title = "Recibo de alquiler mensual";
+    const titleWidth = doc.getTextWidth(title);
+    const titleX = (pageWidth - titleWidth) / 2;
+    doc.text(title, titleX, verticalPosition);
+    verticalPosition += 15;
+
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("Inquilino: ", leftMargin, verticalPosition);
+    doc.setFont("helvetica", "normal");
+    doc.text(receipt.tenant_name, leftMargin + 30, verticalPosition);
+    verticalPosition += 10;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Periodo: ", leftMargin, verticalPosition);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${receipt.rental_period_start} - ${receipt.rental_period_end}`, leftMargin + 30, verticalPosition);
+    verticalPosition += 10;
+
+    doc.setFont("helvetica", "bold");
+    doc.text("Dirección: ", leftMargin, verticalPosition);
+    doc.setFont("helvetica", "normal");
+    doc.text(receipt.property_address, leftMargin + 30, verticalPosition);
+    verticalPosition += 20;
+
+    doc.setFontSize(16);
+    const detailTitle = "Detalle";
+    const detailTitleWidth = doc.getTextWidth(detailTitle);
+    const detailTitleX = (pageWidth - detailTitleWidth) / 2;
+    doc.text(detailTitle, detailTitleX, verticalPosition);
+    verticalPosition += 15;
+
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("Alquiler: ", leftMargin, verticalPosition);
+    doc.setFont("helvetica", "normal");
+    doc.text(`$${receipt.rent_amount}`, leftMargin + 40, verticalPosition);
+    verticalPosition += 10;
+
     if (receipt.expenses_amount) {
-      doc.text("Expensas: ", 10, 85);
-      doc.text(`$${receipt.expenses_amount}`, 50, 85);
+      doc.setFont("helvetica", "bold");
+      doc.text("Expensas: ", leftMargin, verticalPosition);
+      doc.setFont("helvetica", "normal");
+      doc.text(`$${receipt.expenses_amount}`, leftMargin + 40, verticalPosition);
+      verticalPosition += 10;
     }
     if (receipt.water_amount) {
-      doc.text("Aguas: ", 10, 95);
-      doc.text(`$${receipt.water_amount}`, 50, 95);
+      doc.setFont("helvetica", "bold");
+      doc.text("Aguas: ", leftMargin, verticalPosition);
+      doc.setFont("helvetica", "normal");
+      doc.text(`$${receipt.water_amount}`, leftMargin + 40, verticalPosition);
+      verticalPosition += 10;
     }
     if (receipt.municipal_amount) {
-      doc.text("Municipalidad: ", 10, 105);
-      doc.text(`$${receipt.municipal_amount}`, 50, 105);
+      doc.setFont("helvetica", "bold");
+      doc.text("Municipalidad: ", leftMargin, verticalPosition);
+      doc.setFont("helvetica", "normal");
+      doc.text(`$${receipt.municipal_amount}`, leftMargin + 40, verticalPosition);
+      verticalPosition += 10;
     }
     if (receipt.dgr_amount) {
-      doc.text("DGR: ", 10, 115);
-      doc.text(`$${receipt.dgr_amount}`, 50, 115);
+      doc.setFont("helvetica", "bold");
+      doc.text("DGR: ", leftMargin, verticalPosition);
+      doc.setFont("helvetica", "normal");
+      doc.text(`$${receipt.dgr_amount}`, leftMargin + 40, verticalPosition);
+      verticalPosition += 10;
     }
     if (receipt.epec_amount) {
-      doc.text("EPEC: ", 10, 125);
-      doc.text(`$${receipt.epec_amount}`, 50, 125);
+      doc.setFont("helvetica", "bold");
+      doc.text("EPEC: ", leftMargin, verticalPosition);
+      doc.setFont("helvetica", "normal");
+      doc.text(`$${receipt.epec_amount}`, leftMargin + 40, verticalPosition);
+      verticalPosition += 10;
     }
     if (receipt.various_amount) {
-      doc.text("Varios: ", 10, 135);
-      doc.text(`$${receipt.various_amount}`, 50, 135);
+      doc.setFont("helvetica", "bold");
+      doc.text("Varios: ", leftMargin, verticalPosition);
+      doc.setFont("helvetica", "normal");
+      doc.text(`$${receipt.various_amount}`, leftMargin + 40, verticalPosition);
+      verticalPosition += 10;
     }
     if (receipt.previous_balance) {
-      doc.text("Balance previo: ", 10, 145);
-      doc.text(`$${receipt.previous_balance}`, 50, 145);
+      doc.setFont("helvetica", "bold");
+      doc.text("Balance previo: ", leftMargin, verticalPosition);
+      doc.setFont("helvetica", "normal");
+      doc.text(`$${receipt.previous_balance}`, leftMargin + 40, verticalPosition);
+      verticalPosition += 10;
     }
+
     // display total amount
-    doc.text("Total: ", 10, 155);
-    doc.text(`$${receipt.rent_amount + receipt.expenses_amount + receipt.water_amount + receipt.municipal_amount + receipt.dgr_amount + receipt.epec_amount + receipt.various_amount + receipt.previous_balance}`, 50, 155);
+    doc.setFont("helvetica", "bold");
+    doc.text("Total: ", leftMargin, verticalPosition);
+    doc.setFont("helvetica", "normal");
+    doc.text(`$${receipt.rent_amount + receipt.expenses_amount + receipt.water_amount + receipt.municipal_amount + receipt.dgr_amount + receipt.epec_amount + receipt.various_amount + receipt.previous_balance}`, leftMargin + 40, verticalPosition);
+    verticalPosition += 10;
 
     doc.save(`${receipt.property_id}-rec.pdf`);
   }
