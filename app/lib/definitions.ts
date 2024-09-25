@@ -169,3 +169,18 @@ export type ReceiptForm = {
   previous_balance_paid: boolean;
   total_amount: number;
 };
+
+export type ReceiptToPrint = {
+  tenant_name: string;
+  rental_period_start: string;
+  property_address: string;
+  rent_amount: number;
+  dgr_amount: number;
+  water_amount: number;
+  epec_amount: number;
+  municipal_amount: number;
+  expenses_amount: number;
+  rentas_amount: number;
+  various_amount: number;
+  previous_balance: number;
+};

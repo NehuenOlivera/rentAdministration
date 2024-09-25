@@ -349,7 +349,7 @@ const ReceiptFormSchema = z.object({
     expenses_paid: z.boolean(),
     rentas_amount: z.coerce.number().gte(0),
     rentas_paid: z.boolean(),
-    various_amount: z.coerce.number().gte(0),
+    various_amount: z.coerce.number(),
     various_paid: z.boolean(),
     previous_balance: z.coerce.number(),
     previous_balance_paid: z.boolean(),

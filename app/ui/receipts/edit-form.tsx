@@ -12,12 +12,62 @@ import { Button } from '@/app/ui/button';
 import { ReceiptState, updateReceipt } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import Toggle from '../toggle';
+import jsPDF from 'jspdf';
 
 export default function Form({ receipt }: { receipt: ReceiptForm }) {
   const updateReceiptWithId = updateReceipt.bind(null, receipt.id);
   
   const initialState: ReceiptState = { errors: {}, message: null };
   const [state, formAction] = useActionState(updateReceiptWithId, initialState);
+
+  const printReceipt = async () => {
+    const doc = new jsPDF();
+
+    doc.text("Recibo de alquiler mensual", 75, 10);
+    doc.text("Inquilino: ", 10, 25);
+    doc.text(receipt.tenant_name, 40, 25);
+    doc.text("Periodo: ", 10, 35);
+    doc.text(`${receipt.rental_period_start} - ${receipt.rental_period_end}`, 40, 35);
+    doc.text("Dirección: ", 10, 45);
+    doc.text(receipt.property_address, 40, 45);
+
+    doc.text("Detalle", 75, 65);
+    doc.text("Alquiler: ", 10, 75);
+    doc.text(`$${receipt.rent_amount}`, 50, 75);
+    if (receipt.expenses_amount) {
+      doc.text("Expensas: ", 10, 85);
+      doc.text(`$${receipt.expenses_amount}`, 50, 85);
+    }
+    if (receipt.water_amount) {
+      doc.text("Aguas: ", 10, 95);
+      doc.text(`$${receipt.water_amount}`, 50, 95);
+    }
+    if (receipt.municipal_amount) {
+      doc.text("Municipalidad: ", 10, 105);
+      doc.text(`$${receipt.municipal_amount}`, 50, 105);
+    }
+    if (receipt.dgr_amount) {
+      doc.text("DGR: ", 10, 115);
+      doc.text(`$${receipt.dgr_amount}`, 50, 115);
+    }
+    if (receipt.epec_amount) {
+      doc.text("EPEC: ", 10, 125);
+      doc.text(`$${receipt.epec_amount}`, 50, 125);
+    }
+    if (receipt.various_amount) {
+      doc.text("Varios: ", 10, 135);
+      doc.text(`$${receipt.various_amount}`, 50, 135);
+    }
+    if (receipt.previous_balance) {
+      doc.text("Balance previo: ", 10, 145);
+      doc.text(`$${receipt.previous_balance}`, 50, 145);
+    }
+    // display total amount
+    doc.text("Total: ", 10, 155);
+    doc.text(`$${receipt.rent_amount + receipt.expenses_amount + receipt.water_amount + receipt.municipal_amount + receipt.dgr_amount + receipt.epec_amount + receipt.various_amount + receipt.previous_balance}`, 50, 155);
+
+    doc.save(`${receipt.property_id}-rec.pdf`);
+  }
 
   return (
     <form action={formAction}>
@@ -402,6 +452,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
 
         {/* Buttons */}
       <div className="mt-6 flex justify-end gap-4">
+        <Button type="button" onClick={printReceipt}>PDF</Button>
         <Link
           href={`/dashboard/properties/${receipt.property_id}/receipts`}
           className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
