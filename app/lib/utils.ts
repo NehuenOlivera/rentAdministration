@@ -21,6 +21,17 @@ export const formatDateToLocal = (
   return formatter.format(date);
 };
 
+export const formatDateToDayMonthYear = (dateStr: string, locale: string = 'es-US') => {
+  const date = new Date(dateStr);
+  const options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+  };
+  const formatter = new Intl.DateTimeFormat(locale, options);
+  return formatter.format(date);
+}
+
 // Format the date to be displayed in spanish in the format "month year" (e.g. "Enero 2022")
 export const formatMonthYear = (dateStr: string) => {
   const date = new Date(dateStr);

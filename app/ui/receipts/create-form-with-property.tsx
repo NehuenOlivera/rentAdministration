@@ -3,7 +3,6 @@
 import { PropertyForm } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
-  Bars2Icon,
   CalendarIcon,
   CurrencyDollarIcon,
   HomeIcon,

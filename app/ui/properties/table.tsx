@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { UpdateProperty, DeleteProperty, GetPropertyReceipts } from './buttons';
-import { formatDateToLocal, formatCurrency, formatMonthYear } from '@/app/lib/utils';
+import { formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredProperties } from '@/app/lib/data';
 
 export default async function PropertiesTable({

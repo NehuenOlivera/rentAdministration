@@ -13,6 +13,7 @@ import { ReceiptState, updateReceipt } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import Toggle from '../toggle';
 import jsPDF from 'jspdf';
+import { formatDateToDayMonthYear } from '@/app/lib/utils';
 
 export default function Form({ receipt }: { receipt: ReceiptForm }) {
   const updateReceiptWithId = updateReceipt.bind(null, receipt.id);
@@ -57,7 +58,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
     drawCell("Inquilino: ", receipt.tenant_name, verticalPosition);
     verticalPosition += cellHeight;
 
-    drawCell("Periodo: ", `${receipt.rental_period_start} - ${receipt.rental_period_end}`, verticalPosition);
+    drawCell("Periodo: ", `${formatDateToDayMonthYear(receipt.rental_period_start)} - ${formatDateToDayMonthYear(receipt.rental_period_end)}`, verticalPosition);
     verticalPosition += cellHeight;
 
     drawCell("Dirección: ", receipt.property_address, verticalPosition);
