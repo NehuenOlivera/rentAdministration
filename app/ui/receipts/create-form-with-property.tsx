@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createReceiptFromProperty, ReceiptState } from '@/app/lib/actions';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import Toggle from '../toggle';
 
 export default function Form({ property }: { property: PropertyForm }) {
@@ -19,6 +19,19 @@ export default function Form({ property }: { property: PropertyForm }) {
   
   const initialState: ReceiptState = { errors: {}, message: null };
   const [state, formAction] = useActionState(createReceiptWithId, initialState);
+
+  // Define el estado para los montos
+  const [rentAmount, setRentAmount] = useState(property.monthly_rent || 0);
+  const [dgrAmount, setDgrAmount] = useState(0);
+  const [waterAmount, setWaterAmount] = useState(0);
+  const [epecAmount, setEpecAmount] = useState(0);
+  const [municipalAmount, setMunicipalAmount] = useState(0);
+  const [expensesAmount, setExpensesAmount] = useState(0);
+  const [variousAmount, setVariousAmount] = useState(0);
+  const [previousBalance, setPreviousBalance] = useState(0);
+
+  // Calcula el total cada vez que un monto cambia
+  const totalAmount = rentAmount + dgrAmount + waterAmount + epecAmount + municipalAmount + expensesAmount + variousAmount + previousBalance;
 
   return (
     <form action={formAction}>
@@ -123,6 +136,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                       placeholder="Monto de alquiler"
                       className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                       defaultValue={property.monthly_rent}
+                      onChange={(e) => setRentAmount(Number(e.target.value) || 0)}
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                   </div>
@@ -154,6 +168,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                             type="string"
                             placeholder="Monto DGR"
                             className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                            onChange={(e) => setDgrAmount(Number(e.target.value) || 0)}
                         />
                         <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                     </div>
@@ -185,6 +200,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                               type="string"
                               placeholder="Monto de Aguas"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setWaterAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -216,6 +232,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                               type="string"
                               placeholder="Monto de electricidad"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setEpecAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -247,6 +264,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                               type="string"
                               placeholder="Monto de municipalidad"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setMunicipalAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -278,6 +296,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                               type="string"
                               placeholder="Monto de expensas"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setExpensesAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -309,6 +328,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                               type="string"
                               placeholder="Monto de varios"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setVariousAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -340,6 +360,7 @@ export default function Form({ property }: { property: PropertyForm }) {
                               type="string"
                               placeholder="Monto de alquiler"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setPreviousBalance(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -354,6 +375,16 @@ export default function Form({ property }: { property: PropertyForm }) {
                       Ingrese un monto válido
                     </p>
                   ))}  
+              </div>
+            </div>
+
+            {/* Total balance */}
+            <div>
+              <label className="mb-2 block text-sm font-medium">
+                Total
+              </label>
+              <div className="mt-2">
+                <span className="text-lg font-semibold">$ {totalAmount.toFixed(2)}</span>
               </div>
             </div>
         </div>

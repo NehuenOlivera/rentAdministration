@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { ReceiptState, updateReceipt } from '@/app/lib/actions';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import Toggle from '../toggle';
 import jsPDF from 'jspdf';
 import { formatDateToDayMonthYear } from '@/app/lib/utils';
@@ -20,6 +20,19 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
   
   const initialState: ReceiptState = { errors: {}, message: null };
   const [state, formAction] = useActionState(updateReceiptWithId, initialState);
+
+  // Define el estado para los montos
+  const [rentAmount, setRentAmount] = useState(receipt.rent_amount || 0);
+  const [dgrAmount, setDgrAmount] = useState(receipt.dgr_amount || 0);
+  const [waterAmount, setWaterAmount] = useState(receipt.water_amount || 0);
+  const [epecAmount, setEpecAmount] = useState(receipt.epec_amount || 0);
+  const [municipalAmount, setMunicipalAmount] = useState(receipt.municipal_amount || 0);
+  const [expensesAmount, setExpensesAmount] = useState(receipt.expenses_amount || 0);
+  const [variousAmount, setVariousAmount] = useState(receipt.various_amount || 0);
+  const [previousBalance, setPreviousBalance] = useState(receipt.previous_balance || 0);
+
+  // Calcula el total cada vez que un monto cambia
+  const totalAmount = rentAmount + dgrAmount + waterAmount + epecAmount + municipalAmount + expensesAmount + variousAmount + previousBalance;
 
   const printReceipt = async () => {
     const doc = new jsPDF();
@@ -207,6 +220,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                       placeholder="Monto de alquiler"
                       className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                       defaultValue={receipt.rent_amount}
+                      onChange={(e) => setRentAmount(Number(e.target.value) || 0)}
                     />
                     <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                   </div>
@@ -239,6 +253,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                             defaultValue={receipt.dgr_amount}
                             placeholder="Monto DGR"
                             className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                            onChange={(e) => setDgrAmount(Number(e.target.value) || 0)}
                         />
                         <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                     </div>
@@ -271,6 +286,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                               defaultValue={receipt.water_amount}
                               placeholder="Monto de Aguas"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setWaterAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -303,6 +319,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                               defaultValue={receipt.epec_amount}
                               placeholder="Monto de electricidad"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setEpecAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -335,6 +352,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                               defaultValue={receipt.municipal_amount}
                               placeholder="Monto de municipalidad"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setMunicipalAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -367,6 +385,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                               defaultValue={receipt.expenses_amount}
                               placeholder="Monto de expensas"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setExpensesAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -399,6 +418,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                               defaultValue={receipt.various_amount}
                               placeholder="Monto de varios"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setVariousAmount(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -431,6 +451,7 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                               defaultValue={receipt.previous_balance}
                               placeholder="Monto de alquiler"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                              onChange={(e) => setPreviousBalance(Number(e.target.value) || 0)}
                           />
                           <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                       </div>
@@ -445,6 +466,16 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
                       Ingrese un monto válido
                     </p>
                   ))}  
+              </div>
+            </div>
+
+            {/* Total balance */}
+            <div>
+              <label className="mb-2 block text-sm font-medium">
+                Total
+              </label>
+              <div className="mt-2">
+                <span className="text-lg font-semibold">$ {totalAmount.toFixed(2)}</span>
               </div>
             </div>
         </div>
