@@ -24,8 +24,6 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
     const doc = new jsPDF();
     const leftMargin = 20;
     let verticalPosition = 20;
-
-    // Ancho total de la página
     const pageWidth = doc.internal.pageSize.getWidth();
 
     doc.setFontSize(16);
@@ -33,100 +31,74 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
     const titleWidth = doc.getTextWidth(title);
     const titleX = (pageWidth - titleWidth) / 2;
     doc.text(title, titleX, verticalPosition);
-    verticalPosition += 15;
-
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("Inquilino: ", leftMargin, verticalPosition);
-    doc.setFont("helvetica", "normal");
-    doc.text(receipt.tenant_name, leftMargin + 30, verticalPosition);
     verticalPosition += 10;
 
-    doc.setFont("helvetica", "bold");
-    doc.text("Periodo: ", leftMargin, verticalPosition);
-    doc.setFont("helvetica", "normal");
-    doc.text(`${receipt.rental_period_start} - ${receipt.rental_period_end}`, leftMargin + 30, verticalPosition);
-    verticalPosition += 10;
+    // Definir el tamaño de las celdas
+    const cellHeight = 10;
+    const labelWidth = 50; // Ancho para las etiquetas
+    const valueWidth = 100; // Ancho para los valores
+    const boxPadding = 2;   // Padding dentro de las celdas
 
-    doc.setFont("helvetica", "bold");
-    doc.text("Dirección: ", leftMargin, verticalPosition);
-    doc.setFont("helvetica", "normal");
-    doc.text(receipt.property_address, leftMargin + 30, verticalPosition);
-    verticalPosition += 20;
+    // Definir los tipos de parámetros en TypeScript
+    const drawCell = (label: string, value: string, verticalPosition: number) => {
+        doc.setFontSize(12);
+        
+        // Dibujar celda para la etiqueta
+        doc.rect(leftMargin, verticalPosition, labelWidth, cellHeight);
+        doc.setFont("helvetica", "bold");
+        doc.text(label, leftMargin + boxPadding, verticalPosition + 7); // Centrado verticalmente dentro de la celda
+        
+        // Dibujar celda para el valor
+        doc.rect(leftMargin + labelWidth, verticalPosition, valueWidth, cellHeight);
+        doc.setFont("helvetica", "normal");
+        doc.text(value, leftMargin + labelWidth + boxPadding, verticalPosition + 7); // Centrado verticalmente dentro de la celda
+    };
 
+    drawCell("Inquilino: ", receipt.tenant_name, verticalPosition);
+    verticalPosition += cellHeight;
+
+    drawCell("Periodo: ", `${receipt.rental_period_start} - ${receipt.rental_period_end}`, verticalPosition);
+    verticalPosition += cellHeight;
+
+    drawCell("Dirección: ", receipt.property_address, verticalPosition);
+    verticalPosition += cellHeight + 15; // Añadir espacio extra antes del siguiente bloque
+
+    // Título para la sección de Detalle
     doc.setFontSize(16);
     const detailTitle = "Detalle";
     const detailTitleWidth = doc.getTextWidth(detailTitle);
     const detailTitleX = (pageWidth - detailTitleWidth) / 2;
     doc.text(detailTitle, detailTitleX, verticalPosition);
-    verticalPosition += 15;
-
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("Alquiler: ", leftMargin, verticalPosition);
-    doc.setFont("helvetica", "normal");
-    doc.text(`$${receipt.rent_amount}`, leftMargin + 40, verticalPosition);
     verticalPosition += 10;
 
-    if (receipt.expenses_amount) {
-      doc.setFont("helvetica", "bold");
-      doc.text("Expensas: ", leftMargin, verticalPosition);
-      doc.setFont("helvetica", "normal");
-      doc.text(`$${receipt.expenses_amount}`, leftMargin + 40, verticalPosition);
-      verticalPosition += 10;
-    }
-    if (receipt.water_amount) {
-      doc.setFont("helvetica", "bold");
-      doc.text("Aguas: ", leftMargin, verticalPosition);
-      doc.setFont("helvetica", "normal");
-      doc.text(`$${receipt.water_amount}`, leftMargin + 40, verticalPosition);
-      verticalPosition += 10;
-    }
-    if (receipt.municipal_amount) {
-      doc.setFont("helvetica", "bold");
-      doc.text("Municipalidad: ", leftMargin, verticalPosition);
-      doc.setFont("helvetica", "normal");
-      doc.text(`$${receipt.municipal_amount}`, leftMargin + 40, verticalPosition);
-      verticalPosition += 10;
-    }
-    if (receipt.dgr_amount) {
-      doc.setFont("helvetica", "bold");
-      doc.text("DGR: ", leftMargin, verticalPosition);
-      doc.setFont("helvetica", "normal");
-      doc.text(`$${receipt.dgr_amount}`, leftMargin + 40, verticalPosition);
-      verticalPosition += 10;
-    }
-    if (receipt.epec_amount) {
-      doc.setFont("helvetica", "bold");
-      doc.text("EPEC: ", leftMargin, verticalPosition);
-      doc.setFont("helvetica", "normal");
-      doc.text(`$${receipt.epec_amount}`, leftMargin + 40, verticalPosition);
-      verticalPosition += 10;
-    }
-    if (receipt.various_amount) {
-      doc.setFont("helvetica", "bold");
-      doc.text("Varios: ", leftMargin, verticalPosition);
-      doc.setFont("helvetica", "normal");
-      doc.text(`$${receipt.various_amount}`, leftMargin + 40, verticalPosition);
-      verticalPosition += 10;
-    }
-    if (receipt.previous_balance) {
-      doc.setFont("helvetica", "bold");
-      doc.text("Balance previo: ", leftMargin, verticalPosition);
-      doc.setFont("helvetica", "normal");
-      doc.text(`$${receipt.previous_balance}`, leftMargin + 40, verticalPosition);
-      verticalPosition += 10;
-    }
+    // Dibujar el segundo bloque de celdas para los detalles de la renta
+    const items = [
+        receipt.rent_amount ? { label: "Alquiler: ", value: `$${receipt.rent_amount}` } : null,
+        receipt.expenses_amount ? { label: "Expensas: ", value: `$${receipt.expenses_amount}` } : null,
+        receipt.water_amount ? { label: "Aguas: ", value: `$${receipt.water_amount}` } : null,
+        receipt.municipal_amount ? { label: "Municipalidad: ", value: `$${receipt.municipal_amount}` } : null,
+        receipt.dgr_amount ? { label: "DGR: ", value: `$${receipt.dgr_amount}` } : null,
+        receipt.epec_amount ? { label: "EPEC: ", value: `$${receipt.epec_amount}` } : null,
+        receipt.various_amount ? { label: "Varios: ", value: `$${receipt.various_amount}` } : null,
+        receipt.previous_balance ? { label: "Balance previo: ", value: `$${receipt.previous_balance}` } : null
+    ].filter(item => item !== null); // Filtrar items que no existen
 
-    // display total amount
-    doc.setFont("helvetica", "bold");
-    doc.text("Total: ", leftMargin, verticalPosition);
-    doc.setFont("helvetica", "normal");
-    doc.text(`$${receipt.rent_amount + receipt.expenses_amount + receipt.water_amount + receipt.municipal_amount + receipt.dgr_amount + receipt.epec_amount + receipt.various_amount + receipt.previous_balance}`, leftMargin + 40, verticalPosition);
-    verticalPosition += 10;
+    // Dibujar cada par de etiqueta/valor como una fila de celdas
+    items.forEach((item) => {
+        drawCell(item!.label, item!.value, verticalPosition);
+        verticalPosition += cellHeight;
+    });
 
+    // Dibujar la fila para el total
+    const totalAmount = receipt.rent_amount + (receipt.expenses_amount || 0) + (receipt.water_amount || 0) +
+                        (receipt.municipal_amount || 0) + (receipt.dgr_amount || 0) +
+                        (receipt.epec_amount || 0) + (receipt.various_amount || 0) + (receipt.previous_balance || 0);
+
+    drawCell("Total: ", `$${totalAmount}`, verticalPosition);
+
+    // Guardar el archivo PDF
     doc.save(`${receipt.property_id}-rec.pdf`);
-  }
+  };
 
   return (
     <form action={formAction}>
