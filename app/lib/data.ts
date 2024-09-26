@@ -194,8 +194,7 @@ export async function fetchFilteredProperties(
       FROM properties
       WHERE
         name::text ILIKE ${`%${query}%`} OR
-        street_name::text ILIKE ${`%${query}%`} OR
-        municipal_code::text ILIKE ${`%${query}%`}
+        tenant_name::text ILIKE ${`%${query}%`}
       ORDER BY name ASC
       LIMIT ${PROPERTIES_PER_PAGE} OFFSET ${offset}
     `;

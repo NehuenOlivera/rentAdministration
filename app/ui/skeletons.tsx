@@ -261,13 +261,10 @@ export function PropertiesTableSkeleton() {
                   Propiedad
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Calle
+                  Inquilino
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Alquiler
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  Fecha de inicio
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Comentarios

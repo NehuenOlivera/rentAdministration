@@ -18,7 +18,7 @@ export function UpdateProperty({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/properties/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100"
+      className="rounded-md border p-2 hover:bg-blue-300"
     >
       <PencilIcon className="w-5" />
     </Link>
@@ -31,7 +31,7 @@ export function DeleteProperty({ id }: { id: string }) {
 
   return (
     <form action={deletePropertyWithId}>
-      <button className="rounded-md border p-2 hover:bg-gray-100">
+      <button className="rounded-md border p-2 hover:bg-red-300">
         <span className="sr-only">Borrar</span>
         <TrashIcon className="w-5" />
       </button>

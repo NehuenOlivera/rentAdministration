@@ -34,7 +34,7 @@ export default async function PropertiesTable({
                       />
                       <p>{property.name}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{property.street_name}</p>
+                    <p className="text-sm text-gray-500">{property.tenant_name}</p>
                   </div>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
@@ -59,7 +59,7 @@ export default async function PropertiesTable({
                   Propiedad
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Calle
+                  Inquilino
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Alquiler
@@ -90,13 +90,13 @@ export default async function PropertiesTable({
                       <p>{property.name}</p>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {property.street_name}
+                  <td className="whitespace-nowrap px-3 py-3 tenant-custom-max-width">
+                    {property.tenant_name}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {formatCurrency(property.monthly_rent)}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3 lg:max-w-xs truncate">
+                  <td className="whitespace-nowrap px-3 py-3 comments-custom-max-width">
                     {property.comments}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
