@@ -295,37 +295,6 @@ export default function Form({ property }: { property: PropertyForm }) {
               </div>
             </div>
 
-            {/* Rentas */}
-            <div>
-              <label htmlFor="rentas_amount" className="mb-2 block text-sm font-medium">
-                Rentas
-              </label>
-              <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-2">
-                  <div className="relative flex items-center gap-2 lg:col-span-3">
-                      <div className="relative w-full">
-                          <input
-                              id="rentas_amount"
-                              name="rentas_amount"
-                              type="string"
-                              placeholder="Monto de rentas"
-                              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                          />
-                          <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-                      </div>
-                      <div className="relative w-auto">
-                          <Toggle labelOff="" labelOn="" initialState={false} inputName="rentas_paid" />
-                      </div>
-                  </div>
-              </div>
-              <div id="monthly-rent-error" aria-live="polite" aria-atomic="true">
-                  {state.errors?.rentas_amount && state.errors.rentas_amount.map((error: string) => (
-                    <p className="mt-2 text-sm text-red-500" key={error}>
-                      Ingrese un monto válido
-                    </p>
-                  ))}  
-              </div>
-            </div>
-
             {/* Various */}
             <div>
               <label htmlFor="various_amount" className="mb-2 block text-sm font-medium">

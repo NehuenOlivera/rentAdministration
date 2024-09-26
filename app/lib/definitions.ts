@@ -161,8 +161,6 @@ export type ReceiptForm = {
   municipal_paid: boolean;
   expenses_amount: number;
   expenses_paid: boolean;
-  rentas_amount: number;
-  rentas_paid: boolean;
   various_amount: number;
   various_paid: boolean;
   previous_balance: number;
@@ -180,7 +178,6 @@ export type ReceiptToPrint = {
   epec_amount: number;
   municipal_amount: number;
   expenses_amount: number;
-  rentas_amount: number;
   various_amount: number;
   previous_balance: number;
 };

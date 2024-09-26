@@ -300,8 +300,6 @@ export type ReceiptState = {
         municipal_paid?: string[];
         expenses_amount?: string[];
         expenses_paid?: string[];
-        rentas_amount?: string[];
-        rentas_paid?: string[];
         various_amount?: string[];
         various_paid?: string[];
         previous_balance?: string[];
@@ -347,8 +345,6 @@ const ReceiptFormSchema = z.object({
     municipal_paid: z.boolean(),
     expenses_amount: z.coerce.number().gte(0),
     expenses_paid: z.boolean(),
-    rentas_amount: z.coerce.number().gte(0),
-    rentas_paid: z.boolean(),
     various_amount: z.coerce.number(),
     various_paid: z.boolean(),
     previous_balance: z.coerce.number(),
@@ -377,8 +373,6 @@ export async function createReceiptFromProperty(propertyId: string, prevState: P
         municipal_paid: formData.get('municipal_paid') === 'true',
         expenses_amount: formData.get('expenses_amount'),
         expenses_paid: formData.get('expenses_paid') === 'true',
-        rentas_amount: formData.get('rentas_amount'),
-        rentas_paid: formData.get('rentas_paid') === 'true',
         various_amount: formData.get('various_amount'),
         various_paid: formData.get('various_paid') === 'true',
         previous_balance: formData.get('previous_balance'),
@@ -409,8 +403,6 @@ export async function createReceiptFromProperty(propertyId: string, prevState: P
         municipal_paid,
         expenses_amount,
         expenses_paid,
-        rentas_amount,
-        rentas_paid,
         various_amount,
         various_paid,
         previous_balance,
@@ -424,10 +416,9 @@ export async function createReceiptFromProperty(propertyId: string, prevState: P
     const epec_amount_in_cents = epec_amount * 100;
     const municipal_amount_in_cents = municipal_amount * 100;
     const expenses_amount_in_cents = expenses_amount * 100;
-    const rentas_amount_in_cents = rentas_amount * 100;
     const various_amount_in_cents = various_amount * 100;
     const previous_balance_in_cents = previous_balance * 100;
-    const total_amount_in_cents = rent_amount_in_cents + dgr_amount_in_cents + water_amount_in_cents + epec_amount_in_cents + municipal_amount_in_cents + expenses_amount_in_cents + rentas_amount_in_cents + various_amount_in_cents + previous_balance_in_cents;
+    const total_amount_in_cents = rent_amount_in_cents + dgr_amount_in_cents + water_amount_in_cents + epec_amount_in_cents + municipal_amount_in_cents + expenses_amount_in_cents + various_amount_in_cents + previous_balance_in_cents;
 
     try {
         await sql`
@@ -449,8 +440,6 @@ export async function createReceiptFromProperty(propertyId: string, prevState: P
                 municipal_paid,
                 expenses_amount,
                 expenses_paid,
-                rentas_amount,
-                rentas_paid,
                 various_amount,
                 various_paid,
                 previous_balance,
@@ -475,8 +464,6 @@ export async function createReceiptFromProperty(propertyId: string, prevState: P
                 ${municipal_paid},
                 ${expenses_amount_in_cents},
                 ${expenses_paid},
-                ${rentas_amount_in_cents},
-                ${rentas_paid},
                 ${various_amount_in_cents},
                 ${various_paid},
                 ${previous_balance_in_cents},
@@ -524,8 +511,6 @@ export async function updateReceipt(id: string, prevState: PropertyState, formDa
         municipal_paid: formData.get('municipal_paid') === 'true',
         expenses_amount: formData.get('expenses_amount'),
         expenses_paid: formData.get('expenses_paid') === 'true',
-        rentas_amount: formData.get('rentas_amount'),
-        rentas_paid: formData.get('rentas_paid') === 'true',
         various_amount: formData.get('various_amount'),
         various_paid: formData.get('various_paid') === 'true',
         previous_balance: formData.get('previous_balance'),
@@ -558,8 +543,6 @@ export async function updateReceipt(id: string, prevState: PropertyState, formDa
         municipal_paid,
         expenses_amount,
         expenses_paid,
-        rentas_amount,
-        rentas_paid,
         various_amount,
         various_paid,
         previous_balance,
@@ -573,10 +556,9 @@ export async function updateReceipt(id: string, prevState: PropertyState, formDa
     const epec_amount_in_cents = epec_amount * 100;
     const municipal_amount_in_cents = municipal_amount * 100;
     const expenses_amount_in_cents = expenses_amount * 100;
-    const rentas_amount_in_cents = rentas_amount * 100;
     const various_amount_in_cents = various_amount * 100;
     const previous_balance_in_cents = previous_balance * 100;
-    const total_amount_in_cents = rent_amount_in_cents + dgr_amount_in_cents + water_amount_in_cents + epec_amount_in_cents + municipal_amount_in_cents + expenses_amount_in_cents + rentas_amount_in_cents + various_amount_in_cents + previous_balance_in_cents;
+    const total_amount_in_cents = rent_amount_in_cents + dgr_amount_in_cents + water_amount_in_cents + epec_amount_in_cents + municipal_amount_in_cents + expenses_amount_in_cents + various_amount_in_cents + previous_balance_in_cents;
 
     const new_start_date = rental_period_start === '' ? new Date().toISOString().split('T')[0] : rental_period_start;
     const new_end_date = rental_period_end === '' ? new Date().toISOString().split('T')[0] : rental_period_end;
@@ -602,8 +584,6 @@ export async function updateReceipt(id: string, prevState: PropertyState, formDa
                 municipal_paid = ${municipal_paid},
                 expenses_amount = ${expenses_amount_in_cents},
                 expenses_paid = ${expenses_paid},
-                rentas_amount = ${rentas_amount_in_cents},
-                rentas_paid = ${rentas_paid},
                 various_amount = ${various_amount_in_cents},
                 various_paid = ${various_paid},
                 previous_balance = ${previous_balance_in_cents},

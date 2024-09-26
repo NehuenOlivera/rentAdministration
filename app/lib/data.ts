@@ -317,8 +317,6 @@ export async function fetchReceiptsFromProperty(
       rentreceipts.municipal_paid,
       rentreceipts.expenses_amount,
       rentreceipts.expenses_paid,
-      rentreceipts.rentas_amount,
-      rentreceipts.rentas_paid,
       rentreceipts.various_amount,
       rentreceipts.various_paid,
       rentreceipts.previous_balance,
@@ -326,7 +324,7 @@ export async function fetchReceiptsFromProperty(
       rentreceipts.total_amount,
       CASE 
         WHEN rentreceipts.rent_paid AND rentreceipts.dgr_paid AND rentreceipts.water_paid AND rentreceipts.epec_paid AND 
-            rentreceipts.municipal_paid AND rentreceipts.expenses_paid AND rentreceipts.rentas_paid AND 
+            rentreceipts.municipal_paid AND rentreceipts.expenses_paid AND 
             rentreceipts.various_paid AND rentreceipts.previous_balance_paid 
         THEN TRUE
         ELSE FALSE
@@ -361,7 +359,6 @@ export async function fetchReceiptById(id: string) {
       epec_amount: receipt.epec_amount / 100,
       municipal_amount: receipt.municipal_amount / 100,
       expenses_amount: receipt.expenses_amount / 100,
-      rentas_amount: receipt.rentas_amount / 100,
       various_amount: receipt.various_amount / 100,
       previous_balance: receipt.previous_balance / 100,
       total_amount: receipt.total_amount / 100,
