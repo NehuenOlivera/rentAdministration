@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import {
-  BoltIcon,
   BuildingLibraryIcon,
   HashtagIcon,
   IdentificationIcon,
@@ -10,13 +9,16 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
-import { createBankAccount, BankAccountState } from '@/app/lib/actions';
+import { BankAccountState, updateBankAccount } from '@/app/lib/actions';
 import { useActionState } from 'react';
+import { BankAccountForm } from '@/app/lib/definitions';
 
-export default function Form() {
-  
+export default function EditBankAccountForm({ bankAccount }: { bankAccount: BankAccountForm;}) {
+
   const initialState: BankAccountState = { errors: {}, message: null };
-  const [state, formAction] = useActionState(createBankAccount, initialState);
+  const updateBankAccountWithId = updateBankAccount.bind(null, bankAccount.id);
+
+  const [state, formAction] = useActionState(updateBankAccountWithId, initialState);
 
   return (
     <form action={formAction}>
@@ -32,6 +34,7 @@ export default function Form() {
                 id="name"
                 name="name"
                 type="string"
+                defaultValue={bankAccount.name}
                 placeholder="Nombre de la cuenta"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 required
@@ -59,6 +62,7 @@ export default function Form() {
                         id="bank"
                         name="bank"
                         type="string"
+                        defaultValue={bankAccount.bank}
                         placeholder="Nombre de banco"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                         required
@@ -79,6 +83,7 @@ export default function Form() {
                 id="owner"
                 name="owner"
                 type="string"
+                defaultValue={bankAccount.owner}
                 placeholder="Titular de cuenta"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 required
@@ -99,6 +104,7 @@ export default function Form() {
                 id="cbu_number"
                 name="cbu_number"
                 type="number"
+                defaultValue={bankAccount.cbu_number}
                 placeholder="Número CBU - CVU"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 required
@@ -119,6 +125,7 @@ export default function Form() {
                         id="alias"
                         name="alias"
                         type="string"
+                        defaultValue={bankAccount.alias}
                         placeholder="Alias de cuenta"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                         required
@@ -137,7 +144,7 @@ export default function Form() {
         >
           Cancelar
         </Link>
-        <Button type="submit">Crear Cuenta</Button>
+        <Button type="submit">Editar Cuenta</Button>
       </div>
     </form>
   );

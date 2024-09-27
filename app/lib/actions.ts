@@ -680,3 +680,49 @@ export type BankAccountState = {
     };
     message?: string | null;
 }
+
+const UpdateBankAccount = BankAccountFormSchema.omit({ id: true });
+
+export async function updateBankAccount(id: string, prevState: BankAccountState, formData: FormData) {
+    const validatedFields = UpdateBankAccount.safeParse({
+        name: formData.get('name'),
+        bank: formData.get('bank'),
+        owner: formData.get('owner'),
+        cbu_number: formData.get('cbu_number'),
+        alias: formData.get('alias'),
+    });
+
+    if (!validatedFields.success) {
+        return { 
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Faltan campos. Error al actualizar la cuenta bancaria'
+        };
+    }
+
+    const {
+        name,
+        bank,
+        owner,
+        cbu_number,
+        alias,
+    } = validatedFields.data;
+
+    try {
+        await sql`
+            UPDATE bankaccounts
+            SET
+                name = ${name},
+                bank = ${bank},
+                owner = ${owner},
+                cbu_number = ${cbu_number},
+                alias = ${alias}
+            WHERE id = ${id}
+        `;
+
+    } catch (error) {
+        return { message: 'Database error: Error al editar la cuenta' };
+    }
+
+    revalidatePath('/dashboard/bankaccounts');
+    redirect('/dashboard/bankaccounts');
+}

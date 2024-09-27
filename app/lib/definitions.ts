@@ -117,3 +117,12 @@ export type BankAccountsTable = {
   cbu_number: string;
   alias: string;
 };
+
+export type BankAccountForm = {
+  id: string;
+  name: string;
+  owner: string;
+  bank: string;
+  cbu_number: string;
+  alias: string;
+};
