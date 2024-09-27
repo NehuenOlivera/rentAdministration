@@ -609,3 +609,74 @@ export async function deleteBankAccount(id: string) {
         return { message: 'Database error: Error al eliminar la cuenta' };
     }
 }
+
+const BankAccountFormSchema = z.object({
+    id: z.string(),
+    name: z.string({ invalid_type_error: 'Ingrese un nombre válido' }),
+    bank: z.string(),
+    owner: z.string(),
+    cbu_number: z.string(),
+    alias: z.string(),
+});
+
+const CreateBankAccount = BankAccountFormSchema.omit({ id: true });
+
+export async function createBankAccount(prevState: BankAccountState, formData: FormData) {
+    const validatedFields = CreateBankAccount.safeParse({
+        name: formData.get('name'),
+        bank: formData.get('bank'),
+        owner: formData.get('owner'),
+        cbu_number: formData.get('cbu_number'),
+        alias: formData.get('alias'),
+    });
+
+    if (!validatedFields.success) {
+        return { 
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Faltan campos. Error al crear la cuenta de banco'
+        };
+    }
+
+    const {
+        name,
+        bank,
+        owner,
+        cbu_number,
+        alias,
+    } = validatedFields.data;
+
+    try {
+        await sql`
+            INSERT INTO bankaccounts (
+                name,
+                bank,
+                owner,
+                cbu_number,
+                alias
+            )
+            VALUES (
+                ${name},
+                ${bank},
+                ${owner},
+                ${cbu_number},
+                ${alias}
+            )
+        `;
+    } catch (error) {
+        return { message: 'Database error: Error al crear la cuenta de banco' };
+    }
+
+    revalidatePath('/dashboard/bankaccounts');
+    redirect('/dashboard/bankaccounts');
+}
+
+export type BankAccountState = {
+    errors?: {
+        name?: string[];
+        bank?: string[];
+        owner?: string[];
+        cbu_number?: string[];
+        alias?: string[];
+    };
+    message?: string | null;
+}
