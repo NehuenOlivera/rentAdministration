@@ -1,10 +1,11 @@
 'use client';
 
-import { FrequencyField } from '@/app/lib/definitions';
+import { BankAccountField, FrequencyField } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   Bars2Icon,
   BoltIcon,
+  BuildingLibraryIcon,
   CalendarIcon,
   ChatBubbleBottomCenterIcon,
   ClockIcon,
@@ -18,7 +19,7 @@ import { Button } from '@/app/ui/button';
 import { createProperty, PropertyState } from '@/app/lib/actions';
 import { useActionState } from 'react';
 
-export default function Form({ frequencies }: { frequencies: FrequencyField[] }) {
+export default function Form({ frequencies, bankAccounts }: { frequencies: FrequencyField[], bankAccounts: BankAccountField[] }) {
   
   const initialState: PropertyState = { errors: {}, message: null };
   const [state, formAction] = useActionState(createProperty, initialState);
@@ -363,6 +364,35 @@ export default function Form({ frequencies }: { frequencies: FrequencyField[] })
                   </div>
                 </div>
             </div>
+        </div>
+
+        {/* Bank Account */}
+        <div className="mb-4">
+          <label htmlFor="bank_account_id" className="mb-2 block text-sm font-medium">
+            Cuenta de banco para transferir
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <select
+                id="bank_account_id"
+                name="bank_account_id"
+                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                defaultValue=""
+                aria-describedby='adjustment-frequency-id-error'
+                required
+              >
+                <option value="" disabled>
+                  Cuenta
+                </option>
+                {bankAccounts.map((account) => (
+                    <option key={account.id} value={account.id}>
+                      {account.name}
+                    </option>
+                ))}
+              </select>
+              <BuildingLibraryIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            </div>
+          </div>
         </div>
 
         {/* Comments */}

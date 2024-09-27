@@ -29,6 +29,7 @@ const PropertyFormSchema = z.object({
     end_date: z.string(),
     adjustment_frequency_id: z.coerce.number().gt(0, { message: 'Seleccione una frecuencia de ajuste' }),
     monthly_rent: z.coerce.number().gt(0, { message: 'Ingrese un monto de alquiler mayor a cero' }),
+    bank_account_id: z.string(),
     comments: z.string(),
 });
 
@@ -55,6 +56,7 @@ export async function createProperty(prevState: PropertyState, formData: FormDat
         end_date: formData.get('end_date'),
         adjustment_frequency_id: formData.get('adjustment_frequency_id'),
         monthly_rent: formData.get('monthly_rent'),
+        bank_account_id: formData.get('bank_account_id'),
         comments: formData.get('comments'),
     });
 
@@ -85,6 +87,7 @@ export async function createProperty(prevState: PropertyState, formData: FormDat
         end_date,
         adjustment_frequency_id,
         monthly_rent,
+        bank_account_id,
         comments,
     } = validatedFields.data;
 
@@ -114,6 +117,7 @@ export async function createProperty(prevState: PropertyState, formData: FormDat
                 end_date,
                 monthly_rent,
                 adjustment_frequency_id,
+                bank_account_id,
                 comments
             )
             VALUES (
@@ -137,6 +141,7 @@ export async function createProperty(prevState: PropertyState, formData: FormDat
                 ${end_date},
                 ${rent_amount_in_cents},
                 ${adjustment_frequency_id},
+                ${bank_account_id},
                 ${comments}
             )
         `;
@@ -171,6 +176,7 @@ export async function updateProperty(id: string, prevState: PropertyState, formD
         end_date: formData.get('end_date'),
         adjustment_frequency_id: formData.get('adjustment_frequency_id'),
         monthly_rent: formData.get('monthly_rent'),
+        bank_account_id: formData.get('bank_account_id'),
         comments: formData.get('comments'),
     });
 
@@ -201,6 +207,7 @@ export async function updateProperty(id: string, prevState: PropertyState, formD
         end_date,
         adjustment_frequency_id,
         monthly_rent,
+        bank_account_id,
         comments,
     } = validatedFields.data;
 
@@ -234,6 +241,7 @@ export async function updateProperty(id: string, prevState: PropertyState, formD
                 end_date = ${new_end_date},
                 monthly_rent = ${rent_amount_in_cents},
                 adjustment_frequency_id = ${adjustment_frequency_id},
+                bank_account_id = ${bank_account_id},
                 comments = ${comments}
             WHERE id = ${id}
         `;

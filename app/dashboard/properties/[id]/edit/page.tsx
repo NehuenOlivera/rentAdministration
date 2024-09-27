@@ -1,13 +1,14 @@
 import Form from '@/app/ui/properties/edit-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import { fetchAdjustmentFrequencies, fetchPropertyById } from '@/app/lib/data';
+import { fetchAdjustmentFrequencies, fetchBankAccounts, fetchPropertyById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
  
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
-    const [property, frequencies] = await Promise.all([
+    const [property, frequencies, bankAccounts] = await Promise.all([
         fetchPropertyById(id),
         fetchAdjustmentFrequencies(),
+        fetchBankAccounts(),
     ]);
 
     if (!property) {
@@ -28,7 +29,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           },
         ]}
       />
-      <Form property={property} frequencies={frequencies} />
+      <Form property={property} frequencies={frequencies} bankAccounts={bankAccounts} />
     </main>
   );
 }

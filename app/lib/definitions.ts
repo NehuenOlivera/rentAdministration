@@ -66,6 +66,7 @@ export type PropertyForm = {
   end_date: string;
   monthly_rent: number;
   adjustment_frequency_id: number;
+  bank_account_id: string;
   comments: string;
 };
 

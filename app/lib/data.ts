@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
 import {
+  BankAccountField,
   BankAccountForm,
   BankAccountsTable,
   FrequencyField,
@@ -204,18 +205,19 @@ export async function fetchReceiptById(id: string) {
 }
 
 export async function fetchBankAccounts() {
-
   try {
-    const bankaccounts = await sql<BankAccountsTable>`
-      SELECT *
+    const data = await sql<BankAccountField>`
+      SELECT
+        id,
+        name
       FROM bankaccounts
-      ORDER BY name ASC
     `;
 
-    return bankaccounts.rows;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch bank accounts.');
+    const bankaccounts = data.rows;
+    return bankaccounts;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all bank accounts.');
   }
 }
 
