@@ -1,6 +1,6 @@
 'use client';
 
-import { ReceiptForm } from '@/app/lib/definitions';
+import { BankAccountForm, PropertyForm, ReceiptForm } from '@/app/lib/definitions';
 import Link from 'next/link';
 import {
   CalendarIcon,
@@ -13,9 +13,9 @@ import { ReceiptState, updateReceipt } from '@/app/lib/actions';
 import { useActionState, useState } from 'react';
 import Toggle from '../toggle';
 import jsPDF from 'jspdf';
-import { formatDateToDayMonthYear } from '@/app/lib/utils';
+import { formatDateToDayMonthYear, formatYearMonth } from '@/app/lib/utils';
 
-export default function Form({ receipt }: { receipt: ReceiptForm }) {
+export default function Form({ receipt, property, bankAccount }: { receipt: ReceiptForm, property: PropertyForm, bankAccount: BankAccountForm }) {
   const updateReceiptWithId = updateReceipt.bind(null, receipt.id);
   
   const initialState: ReceiptState = { errors: {}, message: null };
@@ -110,8 +110,47 @@ export default function Form({ receipt }: { receipt: ReceiptForm }) {
 
     drawCell("Total: ", `$${totalAmount}`, verticalPosition);
 
+    verticalPosition += cellHeight + 15;
+
+    if (bankAccount) {
+        // Título para la sección de Cuenta Bancaria
+        doc.setFontSize(16);
+        const bankAccountTitle = "Datos bancarios para transferencia";
+        const bankAccountTitleWidth = doc.getTextWidth(bankAccountTitle);
+        const bankAccountTitleX = (pageWidth - bankAccountTitleWidth) / 2;
+        doc.text(bankAccountTitle, bankAccountTitleX, verticalPosition);
+        verticalPosition += 10;
+
+        // Datos de la cuenta bancaria
+        const drawBankAccountCell = (label: string, value: string, verticalPosition: number) => {
+          doc.setFontSize(12);
+          
+          // Dibujar celda para la etiqueta
+          doc.rect(leftMargin, verticalPosition, labelWidth, cellHeight);
+          doc.setFont("helvetica", "bold");
+          doc.text(label, leftMargin + boxPadding, verticalPosition + 7); // Centrado verticalmente dentro de la celda
+          
+          // Dibujar celda para el valor
+          doc.rect(leftMargin + labelWidth, verticalPosition, valueWidth, cellHeight);
+          doc.setFont("helvetica", "normal");
+          doc.text(value, leftMargin + labelWidth + boxPadding, verticalPosition + 7); // Centrado verticalmente dentro de la celda
+    };
+
+    drawBankAccountCell("Titular de cuenta: ", bankAccount.owner, verticalPosition);
+    verticalPosition += cellHeight;
+
+    drawBankAccountCell("Banco: ", bankAccount.bank, verticalPosition);
+    verticalPosition += cellHeight;
+
+    drawBankAccountCell("CBU: ", bankAccount.cbu_number, verticalPosition);
+    verticalPosition += cellHeight;
+
+    drawBankAccountCell("Alias: ", bankAccount.alias, verticalPosition);
+    verticalPosition += cellHeight;
+  }
+
     // Guardar el archivo PDF
-    doc.save(`${receipt.property_id}-rec.pdf`);
+    doc.save(`${property.name}-rec-${formatYearMonth(receipt.rental_period_start)}.pdf`);
   };
 
   return (

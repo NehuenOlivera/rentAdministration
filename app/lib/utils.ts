@@ -42,6 +42,14 @@ export const formatMonthYear = (dateStr: string) => {
   return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 };
 
+// Format date to be displayed in the format "year-month" (e.g. "2022-01")
+export const formatYearMonth = (dateStr: string) => {
+  const date = new Date(dateStr);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  return `${year}-${month.toString().padStart(2, '0')}`;
+};
+
 export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the total number of pages is 7 or less,
   // display all pages without any ellipsis.

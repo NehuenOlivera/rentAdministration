@@ -34,8 +34,6 @@ export default function EditPropertyForm({
 
   const [state, formAction] = useActionState(updatePropertyWithId, initialState);
 
-  console.log(property);
-
   return (
     <form action={formAction}>
         <input type="hidden" name="id" value={property.id} />
