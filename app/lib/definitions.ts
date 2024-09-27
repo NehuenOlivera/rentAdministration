@@ -181,3 +181,12 @@ export type ReceiptToPrint = {
   various_amount: number;
   previous_balance: number;
 };
+
+export type BankAccountsTable = {
+  id: string;
+  name: string;
+  owner: string;
+  bank: string;
+  cbu_number: string;
+  alias: string;
+};

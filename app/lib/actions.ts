@@ -599,3 +599,13 @@ export async function updateReceipt(id: string, prevState: PropertyState, formDa
     revalidatePath(`/dashboard/properties/${property_id}/receipts`);
     redirect(`/dashboard/properties/${property_id}/receipts`);
 }
+
+export async function deleteBankAccount(id: string) {
+    try {
+        await sql`DELETE FROM bankaccounts WHERE id = ${id}`;
+        revalidatePath('/dashboard/bankaccounts');
+        return { message: 'Cuenta eliminada' };
+    } catch (error) {
+        return { message: 'Database error: Error al eliminar la cuenta' };
+    }
+}

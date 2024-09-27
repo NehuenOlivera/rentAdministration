@@ -3,7 +3,8 @@
 import {
   HomeIcon,
   HomeModernIcon,
-  DocumentTextIcon
+  DocumentTextIcon,
+  BuildingLibraryIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -19,6 +20,7 @@ const links = [
     icon: HomeModernIcon,
   },
   { name: 'Recibos', href: '/dashboard/receipts', icon: DocumentTextIcon },
+  { name: 'Cuentas', href: '/dashboard/bankaccounts', icon: BuildingLibraryIcon },
 ];
 
 export default function NavLinks() {

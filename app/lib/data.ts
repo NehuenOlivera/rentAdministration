@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
 import {
+  BankAccountsTable,
   CustomerField,
   CustomersTableType,
   FrequencyField,
@@ -251,5 +252,21 @@ export async function fetchReceiptById(id: string) {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch property.');
+  }
+}
+
+export async function fetchBankAccounts() {
+
+  try {
+    const bankaccounts = await sql<BankAccountsTable>`
+      SELECT *
+      FROM bankaccounts
+      ORDER BY name ASC
+    `;
+
+    return bankaccounts.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch bank accounts.');
   }
 }
