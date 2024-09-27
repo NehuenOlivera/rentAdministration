@@ -36,7 +36,7 @@ export default async function BankAccountsTable() {
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-gray-900 md:table">
+          <table className="hidden min-w-full text-gray-900 md:table table-fixed">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
@@ -67,13 +67,13 @@ export default async function BankAccountsTable() {
                       <p>{account.name}</p>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3 tenant-custom-max-width">
+                  <td className="whitespace-nowrap px-3 py-3">
                     {account.owner}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {account.bank}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3 comments-custom-max-width">
+                  <td className="whitespace-nowrap px-3 py-3">
                     {account.alias}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
