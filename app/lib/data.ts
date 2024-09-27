@@ -240,3 +240,18 @@ export async function fetchBankAccountById(id: string) {
     throw new Error('Failed to fetch bank account.');
   }
 }
+
+export async function fetchBankAccountsTableInfo() {
+  try {
+    const bankaccounts = await sql<BankAccountsTable>`
+      SELECT *
+      FROM bankaccounts
+      ORDER BY name ASC
+    `;
+
+    return bankaccounts.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch bank accounts.');
+  }
+}

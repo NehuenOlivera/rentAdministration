@@ -1,10 +1,8 @@
-import Image from 'next/image';
 import { UpdateBankAccount, DeleteBankAccount } from './buttons';
-import { formatCurrency } from '@/app/lib/utils';
-import { fetchBankAccounts } from '@/app/lib/data';
+import { fetchBankAccountsTableInfo } from '@/app/lib/data';
 
 export default async function BankAccountsTable() {
-  const bankaccounts = await fetchBankAccounts();
+  const bankaccounts = await fetchBankAccountsTableInfo();
 
   return (
     <div className="mt-6 flow-root">
@@ -19,7 +17,7 @@ export default async function BankAccountsTable() {
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
-                      <p>{account.bank}</p>
+                      <p>{account.name}</p>
                     </div>
                     <p className="text-sm text-gray-500">{account.owner}</p>
                   </div>
