@@ -1,5 +1,5 @@
 import Form from '@/app/ui/receipts/create-form-with-property';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchPropertyById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { clsx } from 'clsx';

@@ -1,5 +1,5 @@
 import Form from '@/app/ui/properties/create-form';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchAdjustmentFrequencies } from '@/app/lib/data';
  
 export default async function Page() {

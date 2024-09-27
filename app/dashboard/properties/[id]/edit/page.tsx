@@ -1,5 +1,5 @@
 import Form from '@/app/ui/properties/edit-form';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchAdjustmentFrequencies, fetchPropertyById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
  

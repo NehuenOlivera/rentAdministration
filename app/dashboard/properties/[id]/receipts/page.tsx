@@ -1,6 +1,6 @@
 import Table from '@/app/ui/receipts/table';
 import { fetchPropertyById } from '@/app/lib/data';
-import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
+import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { CreateReceipt } from '@/app/ui/receipts/buttons';
 import { clsx } from 'clsx';
 import { lusitana } from '@/app/ui/fonts';
