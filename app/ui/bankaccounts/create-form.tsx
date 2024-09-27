@@ -50,22 +50,22 @@ export default function Form() {
 
         {/* Bank */}
         <div className="mb-4">
-            <label htmlFor="bank" className="mb-2 block text-sm font-medium">
-                Banco
-            </label>
-            <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-1 lg:grid-cols-5">
-                <div className="relative lg:col-span-2">
-                    <input
-                        id="bank"
-                        name="bank"
-                        type="string"
-                        placeholder="Nombre de banco"
-                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
-                    />
-                    <BuildingLibraryIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-                </div>
+          <label htmlFor="bank" className="mb-2 block text-sm font-medium">
+            Banco
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="bank"
+                name="bank"
+                type="string"
+                placeholder="Nombre de banco"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                required
+              />
+              <TagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
+          </div>
         </div>
 
         {/* Owner */}
@@ -113,19 +113,19 @@ export default function Form() {
           <label htmlFor="alias" className="mb-2 block text-sm font-medium">
             Alias
           </label>
-          <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-1 lg:grid-cols-2">
-                <div className="relative">
-                    <input
-                        id="alias"
-                        name="alias"
-                        type="string"
-                        placeholder="Alias de cuenta"
-                        className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                        required
-                    />
-                    <TagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-                </div>
+          <div className="relative mt-2 rounded-md">
+            <div className="relative">
+              <input
+                id="alias"
+                name="alias"
+                type="string"
+                placeholder="Alias de la cuenta"
+                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                required
+              />
+              <TagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
+          </div>
         </div>
       </div>
 
