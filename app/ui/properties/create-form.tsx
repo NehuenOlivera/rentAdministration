@@ -10,10 +10,14 @@ import {
   ChatBubbleBottomCenterIcon,
   ClockIcon,
   CurrencyDollarIcon,
+  HashtagIcon,
   HomeIcon,
+  IdentificationIcon,
   MapPinIcon,
   PhoneIcon,
-  StopIcon
+  StopIcon,
+  UserCircleIcon,
+  UserIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createProperty, PropertyState } from '@/app/lib/actions';
@@ -81,7 +85,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                         required
                     />
-                    <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                    <HashtagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
 
                 <div className="relative lg:col-span-1">
@@ -122,7 +126,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                 placeholder="Código DGR"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
-              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HashtagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -141,7 +145,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                 placeholder="Número de inmueble"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
-              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HashtagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -160,7 +164,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                         placeholder="Número de cliente"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
-                    <BoltIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                    <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
 
                 <div className="relative">
@@ -171,7 +175,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                         placeholder="Número de contrato"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
-                    <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                    <BoltIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
             </div>
         </div>
@@ -190,7 +194,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                 placeholder="Número de contrato"
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               />
-              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <HashtagIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -210,7 +214,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 required
               />
-              <CurrencyDollarIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
         </div>
@@ -230,7 +234,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                         required
                     />
-                    <BoltIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                    <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
 
                 <div className="relative">
@@ -241,7 +245,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                         placeholder="CUIL-CUIT"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
-                    <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                    <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
 
                 <div className="relative">
@@ -252,7 +256,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                         placeholder="Persona de contacto"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                     />
-                    <MapPinIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                    <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                 </div>
 
                 <div className="relative">
@@ -347,6 +351,7 @@ export default function Form({ frequencies, bankAccounts }: { frequencies: Frequ
                         id="monthly_rent"
                         name="monthly_rent"
                         type="number"
+                        step="0.01"
                         placeholder="Precio Alquiler"
                         className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                         required

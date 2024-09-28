@@ -29,7 +29,7 @@ const PropertyFormSchema = z.object({
     end_date: z.string(),
     adjustment_frequency_id: z.coerce.number().gt(0, { message: 'Seleccione una frecuencia de ajuste' }),
     monthly_rent: z.coerce.number().gt(0, { message: 'Ingrese un monto de alquiler mayor a cero' }),
-    bank_account_id: z.string(),
+    bank_account_id: z.string().nullable(),
     comments: z.string(),
 });
 

@@ -255,7 +255,8 @@ export default function Form({ receipt, property, bankAccount }: { receipt: Rece
                     <input
                       id="rent_amount"
                       name="rent_amount"
-                      type="string"
+                      type="number"
+                      step="0.01"
                       placeholder="Monto de alquiler"
                       className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                       defaultValue={receipt.rent_amount}
@@ -288,7 +289,8 @@ export default function Form({ receipt, property, bankAccount }: { receipt: Rece
                         <input
                             id="dgr_amount"
                             name="dgr_amount"
-                            type="string"
+                            type="number"
+                            step="0.01"
                             defaultValue={receipt.dgr_amount}
                             placeholder="Monto DGR"
                             className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -321,7 +323,8 @@ export default function Form({ receipt, property, bankAccount }: { receipt: Rece
                           <input
                               id="water_amount"
                               name="water_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               defaultValue={receipt.water_amount}
                               placeholder="Monto de Aguas"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -354,7 +357,8 @@ export default function Form({ receipt, property, bankAccount }: { receipt: Rece
                           <input
                               id="epec_amount"
                               name="epec_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               defaultValue={receipt.epec_amount}
                               placeholder="Monto de electricidad"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -387,7 +391,8 @@ export default function Form({ receipt, property, bankAccount }: { receipt: Rece
                           <input
                               id="municipal_amount"
                               name="municipal_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               defaultValue={receipt.municipal_amount}
                               placeholder="Monto de municipalidad"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -420,7 +425,8 @@ export default function Form({ receipt, property, bankAccount }: { receipt: Rece
                           <input
                               id="expenses_amount"
                               name="expenses_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               defaultValue={receipt.expenses_amount}
                               placeholder="Monto de expensas"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -453,7 +459,8 @@ export default function Form({ receipt, property, bankAccount }: { receipt: Rece
                           <input
                               id="various_amount"
                               name="various_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               defaultValue={receipt.various_amount}
                               placeholder="Monto de varios"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
@@ -486,7 +493,8 @@ export default function Form({ receipt, property, bankAccount }: { receipt: Rece
                           <input
                               id="previous_balance"
                               name="previous_balance"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               defaultValue={receipt.previous_balance}
                               placeholder="Monto de alquiler"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"

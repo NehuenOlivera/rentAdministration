@@ -132,7 +132,8 @@ export default function Form({ property }: { property: PropertyForm }) {
                     <input
                       id="rent_amount"
                       name="rent_amount"
-                      type="string"
+                      type="number"
+                      step="0.01"
                       placeholder="Monto de alquiler"
                       className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                       defaultValue={property.monthly_rent}
@@ -165,7 +166,8 @@ export default function Form({ property }: { property: PropertyForm }) {
                         <input
                             id="dgr_amount"
                             name="dgr_amount"
-                            type="string"
+                            type="number"
+                            step="0.01"
                             placeholder="Monto DGR"
                             className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                             onChange={(e) => setDgrAmount(Number(e.target.value) || 0)}
@@ -197,7 +199,8 @@ export default function Form({ property }: { property: PropertyForm }) {
                           <input
                               id="water_amount"
                               name="water_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               placeholder="Monto de Aguas"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                               onChange={(e) => setWaterAmount(Number(e.target.value) || 0)}
@@ -229,7 +232,8 @@ export default function Form({ property }: { property: PropertyForm }) {
                           <input
                               id="epec_amount"
                               name="epec_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               placeholder="Monto de electricidad"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                               onChange={(e) => setEpecAmount(Number(e.target.value) || 0)}
@@ -261,7 +265,8 @@ export default function Form({ property }: { property: PropertyForm }) {
                           <input
                               id="municipal_amount"
                               name="municipal_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               placeholder="Monto de municipalidad"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                               onChange={(e) => setMunicipalAmount(Number(e.target.value) || 0)}
@@ -293,7 +298,8 @@ export default function Form({ property }: { property: PropertyForm }) {
                           <input
                               id="expenses_amount"
                               name="expenses_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               placeholder="Monto de expensas"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                               onChange={(e) => setExpensesAmount(Number(e.target.value) || 0)}
@@ -325,7 +331,8 @@ export default function Form({ property }: { property: PropertyForm }) {
                           <input
                               id="various_amount"
                               name="various_amount"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               placeholder="Monto de varios"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                               onChange={(e) => setVariousAmount(Number(e.target.value) || 0)}
@@ -357,7 +364,8 @@ export default function Form({ property }: { property: PropertyForm }) {
                           <input
                               id="previous_balance"
                               name="previous_balance"
-                              type="string"
+                              type="number"
+                              step="0.01"
                               placeholder="Monto de alquiler"
                               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                               onChange={(e) => setPreviousBalance(Number(e.target.value) || 0)}
