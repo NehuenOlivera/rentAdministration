@@ -17,7 +17,7 @@ export default async function BankAccountsTable() {
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
-                      <p>{account.name}</p>
+                      <p>{account.alias}</p>
                     </div>
                     <p className="text-sm text-gray-500">{account.owner}</p>
                   </div>
