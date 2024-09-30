@@ -9,36 +9,29 @@ import {
   PropertyForm,
   ReceiptForm,
 } from './definitions';
-import { formatCurrency } from './utils';
 
 export async function fetchCardData() {
   try {
-    // You can probably combine these into a single SQL query
-    // However, we are intentionally splitting them to demonstrate
-    // how to initialize multiple queries in parallel with JS.
-    const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
-    const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
-    const invoiceStatusPromise = sql`SELECT
-         SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
-         SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
-         FROM invoices`;
+    const propertiesCountPromise = sql`SELECT COUNT(*) FROM properties`;
+    const pendingReceiptsCountPromise = sql`
+      SELECT COUNT(*)
+      FROM rentreceipts
+      WHERE (rentreceipts.rent_paid AND rentreceipts.dgr_paid AND rentreceipts.water_paid AND rentreceipts.epec_paid AND 
+            rentreceipts.municipal_paid AND rentreceipts.expenses_paid AND 
+            rentreceipts.various_paid AND rentreceipts.previous_balance_paid) = FALSE
+    `;
 
     const data = await Promise.all([
-      invoiceCountPromise,
-      customerCountPromise,
-      invoiceStatusPromise,
+      propertiesCountPromise,
+      pendingReceiptsCountPromise,
     ]);
 
-    const numberOfInvoices = Number(data[0].rows[0].count ?? '0');
-    const numberOfCustomers = Number(data[1].rows[0].count ?? '0');
-    const totalPaidInvoices = formatCurrency(data[2].rows[0].paid ?? '0');
-    const totalPendingInvoices = formatCurrency(data[2].rows[0].pending ?? '0');
+    const numberOfProperties = Number(data[0].rows[0].count ?? '0');
+    const numberOfPendingReceipts = Number(data[1].rows[0].count ?? '0');
 
     return {
-      numberOfCustomers,
-      numberOfInvoices,
-      totalPaidInvoices,
-      totalPendingInvoices,
+      numberOfProperties,
+      numberOfPendingReceipts,
     };
   } catch (error) {
     console.error('Database Error:', error);
