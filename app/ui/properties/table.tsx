@@ -52,64 +52,70 @@ export default async function PropertiesTable({
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-gray-900 md:table">
-            <thead className="rounded-lg text-left text-sm font-normal">
+            {properties?.length > 0 && (
+            <table className="hidden min-w-full text-gray-900 md:table">
+              <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Propiedad
+                Propiedad
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Inquilino
+                Inquilino
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Alquiler
+                Alquiler
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Comentarios
+                Comentarios
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
-                  <span className="sr-only">Editar</span>
+                <span className="sr-only">Editar</span>
                 </th>
               </tr>
-            </thead>
-            <tbody className="bg-white">
-              {properties?.map((property) => (
+              </thead>
+              <tbody className="bg-white">
+              {properties.map((property) => (
                 <tr
-                  key={property.id}
-                  className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
+                key={property.id}
+                className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src='/customers/evil-rabbit.png'
-                        className="rounded-full"
-                        width={28}
-                        height={28}
-                        alt={'Foto de la propiedad'}
-                      />
-                      <p>{property.name}</p>
-                    </div>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3 tenant-custom-max-width">
-                    {property.tenant_name}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {formatCurrency(property.monthly_rent)}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3 comments-custom-max-width">
-                    {property.comments}
-                  </td>
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                    <div className="flex justify-end gap-3">
-                      <GetPropertyReceipts propertyId={property.id} />
-                      <UpdateProperty id={property.id} />
-                      <DeleteProperty id={property.id} />
-                    </div>
-                  </td>
+                <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                  <div className="flex items-center gap-3">
+                  <Image
+                    src='/customers/evil-rabbit.png'
+                    className="rounded-full"
+                    width={28}
+                    height={28}
+                    alt={'Foto de la propiedad'}
+                  />
+                  <p>{property.name}</p>
+                  </div>
+                </td>
+                <td className="whitespace-nowrap px-3 py-3 tenant-custom-max-width">
+                  {property.tenant_name}
+                </td>
+                <td className="whitespace-nowrap px-3 py-3">
+                  {formatCurrency(property.monthly_rent)}
+                </td>
+                <td className="whitespace-nowrap px-3 py-3 comments-custom-max-width">
+                  {property.comments}
+                </td>
+                <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                  <div className="flex justify-end gap-3">
+                  <GetPropertyReceipts propertyId={property.id} />
+                  <UpdateProperty id={property.id} />
+                  <DeleteProperty id={property.id} />
+                  </div>
+                </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+            )}
+          { properties?.length === 0 
+            ? <p className="text-center text-gray-500 mt-4">No se encontraron Propiedades</p>
+            : null
+          }
         </div>
       </div>
     </div>

@@ -127,3 +127,13 @@ export type BankAccountForm = {
   cbu_number: string;
   alias: string;
 };
+
+export type AllReceiptsTable = {
+  id: string;
+  property_id: string;
+  name: string;
+  rental_period_start: string;
+  rental_period_end: string;
+  total_amount: number;
+  isallpaid: boolean;
+};

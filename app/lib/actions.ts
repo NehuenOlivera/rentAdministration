@@ -734,3 +734,13 @@ export async function updateBankAccount(id: string, prevState: BankAccountState,
     revalidatePath('/dashboard/bankaccounts');
     redirect('/dashboard/bankaccounts');
 }
+
+export async function deleteReceiptFromAllReceiptsPage(id: string) {
+    try {
+        await sql`DELETE FROM rentreceipts WHERE id = ${id}`;
+        revalidatePath(`/dashboard/receipts`);
+        return { message: 'Recibo eliminado' };
+    } catch (error) {
+        return { message: 'Database error: Error al eliminar el recibo' };
+    }
+}

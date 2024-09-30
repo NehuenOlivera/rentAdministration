@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
 import {
+  AllReceiptsTable,
   BankAccountField,
   BankAccountForm,
   BankAccountsTable,
@@ -97,8 +98,7 @@ export async function fetchPropertiesPages(query: string) {
     FROM properties
     WHERE
       name::text ILIKE ${`%${query}%`} OR
-      street_name::text ILIKE ${`%${query}%`} OR
-      municipal_code::text ILIKE ${`%${query}%`}
+      tenant_name::text ILIKE ${`%${query}%`}
   `;
 
     const totalPages = Math.ceil(Number(count.rows[0].count) / PROPERTIES_PER_PAGE);
@@ -253,5 +253,78 @@ export async function fetchBankAccountsTableInfo() {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch bank accounts.');
+  }
+}
+
+const RECEIPTS_PER_PAGE = 10;
+export async function fetchFilteredReceipts(
+  query: string,
+  currentPage: number,
+) {
+  const offset = (currentPage - 1) * RECEIPTS_PER_PAGE;
+
+  try {
+    const receipts = await sql<AllReceiptsTable>`
+      SELECT *
+      FROM (
+        SELECT 
+          rentreceipts.id,
+          properties.id AS property_id,
+          properties.name,
+          rentreceipts.rental_period_start,
+          rentreceipts.rental_period_end,
+          CASE 
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 1 THEN 'Enero'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 2 THEN 'Febrero'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 3 THEN 'Marzo'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 4 THEN 'Abril'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 5 THEN 'Mayo'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 6 THEN 'Junio'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 7 THEN 'Julio'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 8 THEN 'Agosto'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 9 THEN 'Septiembre'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 10 THEN 'Octubre'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 11 THEN 'Noviembre'
+            WHEN EXTRACT(MONTH FROM rentreceipts.rental_period_start) = 12 THEN 'Diciembre'
+          END AS mes,
+          rentreceipts.total_amount,
+          CASE 
+            WHEN rentreceipts.rent_paid AND rentreceipts.dgr_paid AND rentreceipts.water_paid AND rentreceipts.epec_paid AND 
+                rentreceipts.municipal_paid AND rentreceipts.expenses_paid AND 
+                rentreceipts.various_paid AND rentreceipts.previous_balance_paid 
+            THEN TRUE
+            ELSE FALSE
+          END AS isallpaid
+        FROM properties
+        JOIN rentreceipts ON properties.id = rentreceipts.property_id
+      ) AS subquery
+      WHERE
+        subquery.name::text ILIKE ${`%${query}%`} OR
+        subquery.mes::text ILIKE ${`%${query}%`}
+      ORDER BY subquery.name ASC, subquery.rental_period_start DESC
+      LIMIT ${RECEIPTS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return receipts.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch all receipts.');
+  }
+}
+
+export async function fetchReceiptsPages(query: string) {
+  try {
+    const count = await sql`SELECT COUNT(*)
+    FROM rentreceipts
+    JOIN properties ON properties.id = rentreceipts.property_id
+    WHERE
+      properties.name::text ILIKE ${`%${query}%`}
+  `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / RECEIPTS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of receipts.');
   }
 }
